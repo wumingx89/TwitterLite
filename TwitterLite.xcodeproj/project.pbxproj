@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		30FBE62C960001F837AA6E40 /* Pods_TwitterLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A16C2124BBCECB09ED7F211 /* Pods_TwitterLite.framework */; };
 		B976FA051F7A125B00849D25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA041F7A125B00849D25 /* AppDelegate.swift */; };
-		B976FA071F7A125B00849D25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA061F7A125B00849D25 /* ViewController.swift */; };
 		B976FA0A1F7A125B00849D25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B976FA081F7A125B00849D25 /* Main.storyboard */; };
 		B976FA0C1F7A125B00849D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B976FA0B1F7A125B00849D25 /* Assets.xcassets */; };
 		B976FA0F1F7A125B00849D25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B976FA0D1F7A125B00849D25 /* LaunchScreen.storyboard */; };
+		B976FA1A1F7A273600849D25 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA191F7A273600849D25 /* LoginViewController.swift */; };
+		B976FA1D1F7A296500849D25 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA1C1F7A296500849D25 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,11 +22,12 @@
 		A4A4A4214239C48850B27FE1 /* Pods-TwitterLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterLite/Pods-TwitterLite.release.xcconfig"; sourceTree = "<group>"; };
 		B976FA011F7A125B00849D25 /* TwitterLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B976FA041F7A125B00849D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B976FA061F7A125B00849D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B976FA091F7A125B00849D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B976FA0B1F7A125B00849D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B976FA0E1F7A125B00849D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B976FA101F7A125B00849D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B976FA191F7A273600849D25 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B976FA1C1F7A296500849D25 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +72,11 @@
 		B976FA031F7A125B00849D25 /* TwitterLite */ = {
 			isa = PBXGroup;
 			children = (
+				B976FA1B1F7A295A00849D25 /* API */,
 				B976FA161F7A12C500849D25 /* Views */,
 				B976FA171F7A12CC00849D25 /* ViewControllers */,
 				B976FA181F7A12DA00849D25 /* Models */,
 				B976FA041F7A125B00849D25 /* AppDelegate.swift */,
-				B976FA061F7A125B00849D25 /* ViewController.swift */,
 				B976FA081F7A125B00849D25 /* Main.storyboard */,
 				B976FA0B1F7A125B00849D25 /* Assets.xcassets */,
 				B976FA0D1F7A125B00849D25 /* LaunchScreen.storyboard */,
@@ -93,6 +95,7 @@
 		B976FA171F7A12CC00849D25 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B976FA191F7A273600849D25 /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -102,6 +105,14 @@
 			children = (
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		B976FA1B1F7A295A00849D25 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B976FA1C1F7A296500849D25 /* Constants.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		CD62CF4D901CF8F3C9C972BE /* Frameworks */ = {
@@ -243,8 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B976FA071F7A125B00849D25 /* ViewController.swift in Sources */,
+				B976FA1A1F7A273600849D25 /* LoginViewController.swift in Sources */,
 				B976FA051F7A125B00849D25 /* AppDelegate.swift in Sources */,
+				B976FA1D1F7A296500849D25 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +420,7 @@
 				B976FA151F7A125B00849D25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
