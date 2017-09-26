@@ -18,13 +18,13 @@ PODS:
     - AFNetworking/NSURLSession (~> 3.0.0)
 
 DEPENDENCIES:
-  - AFNetworking (= 3.0.0)
-  - BDBOAuth1Manager (= 2.0.0)
+  - AFNetworking
+  - BDBOAuth1Manager
 
 SPEC CHECKSUMS:
   AFNetworking: 932ff751f9d6fb1dad0b3af58b7e3ffba0a4e7fd
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
 
-PODFILE CHECKSUM: 3690a46cde30f6dfc501d56ab859a7d9a75da652
+PODFILE CHECKSUM: 504cb89f68b7db0df89ca654f809ecef93940c87
 
 COCOAPODS: 1.3.1
