@@ -17,6 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if User.currentUser != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            window?.rootViewController = vc
+        }
+        
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: User.userDidLogoutKey),
+            object: nil,
+            queue: OperationQueue.main) { (notification) in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController()
+                self.window?.rootViewController = vc
+        }
+        
         return true
     }
 
@@ -43,29 +58,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url.description)
-        
-        let requestToken = BDBOAuth1Credential(queryString: url.query)
-        let twitterClient = BDBOAuth1SessionManager(
-            baseURL: URL(string: "https://api.twitter.com")!,
-            consumerKey: Constants.OAuth.consumerKey,
-            consumerSecret: Constants.OAuth.consumerSecret
-        )!
-        twitterClient.fetchAccessToken(
-            withPath: Constants.OAuth.accessTokenURL,
-            method: "POST",
-            requestToken: requestToken,
-            success: { (accessToken) in
-                print(accessToken!.token!)
-                twitterClient.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task, response) in
-                    print(response as! NSDictionary)
-                }, failure: { (task, error) in
-                    print(error)
-                })
-        }, failure: { (error) in
-            print(error.debugDescription)
-        })
+        TwitterClient.shared.handleOpenUrl(url: url)
         return true
+    }
+}
+
+extension AppDelegate: UIViewControllerTransitioningDelegate {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        <#code#>
     }
 }
 
