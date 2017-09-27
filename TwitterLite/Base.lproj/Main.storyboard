@@ -21,10 +21,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeB-jO-ZB5">
-                                <rect key="frame" x="91" y="307" width="192" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.11372549019607843" green="0.792156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_blue_large" translatesAutoresizingMaskIntoConstraints="NO" id="zkj-GH-TiC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeB-jO-ZB5">
+                                <rect key="frame" x="77" y="547" width="220" height="60"/>
+                                <color key="backgroundColor" red="0.11372549019607843" green="0.63137254901960782" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="MnC-hb-8m0"/>
+                                    <constraint firstAttribute="height" constant="60" id="bDW-bC-3O3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                 <state key="normal" title="Log in with Twitter">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -34,6 +41,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="aeB-jO-ZB5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AWd-Hk-ash"/>
+                            <constraint firstAttribute="trailing" secondItem="zkj-GH-TiC" secondAttribute="trailing" id="MmB-uc-fHv"/>
+                            <constraint firstAttribute="bottom" secondItem="zkj-GH-TiC" secondAttribute="bottom" id="TT4-FS-dPN"/>
+                            <constraint firstAttribute="bottom" secondItem="aeB-jO-ZB5" secondAttribute="bottom" constant="60" id="VVW-YS-iJ2"/>
+                            <constraint firstItem="zkj-GH-TiC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oUg-vW-Vu9"/>
+                            <constraint firstItem="zkj-GH-TiC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uqf-qB-Rv2"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="QxY-Dw-aoi" kind="presentation" identifier="loginSegue" id="tQb-L6-8eP"/>
@@ -41,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="-332" y="-661.61919040479768"/>
         </scene>
         <!--Tweets View Controller-->
         <scene sceneID="Xrm-Dq-fXJ">
@@ -63,7 +78,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="262"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yVQ-s0-bjg" id="l2E-Mz-tRo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="262"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="261.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pTo-O3-Dsf">
@@ -158,6 +173,7 @@
                                             <outlet property="nameLabel" destination="AbA-5p-v8D" id="8cQ-hA-Ech"/>
                                             <outlet property="profileImage" destination="pTo-O3-Dsf" id="7B3-Co-Bif"/>
                                             <outlet property="tweetLabel" destination="Hjl-od-mPZ" id="SZh-zP-Boc"/>
+                                            <segue destination="rYz-dN-w2X" kind="show" id="zrB-pi-LLC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -184,7 +200,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvh-0b-cVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1597.5999999999999" y="-27.436281859070466"/>
+            <point key="canvasLocation" x="438" y="83"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="CUZ-dh-pHC">
+            <objects>
+                <viewController id="rYz-dN-w2X" customClass="DetailsViewController" customModule="TwitterLite" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z5a-ok-WdG"/>
+                        <viewControllerLayoutGuide type="bottom" id="Frg-lb-eq1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JZ2-FA-Pr3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wu7-a8-4z4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1186" y="82"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="80U-BS-5gn">
@@ -202,10 +236,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8NZ-db-NhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890" y="-27"/>
+            <point key="canvasLocation" x="-332" y="83"/>
         </scene>
     </scenes>
     <resources>
+        <image name="twitter_blue_large" width="200" height="200"/>
         <image name="twitter_logo" width="40" height="40"/>
     </resources>
 </document>
