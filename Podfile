@@ -8,4 +8,5 @@ target 'TwitterLite' do
   # Pods for TwitterLite
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
+  pod 'SwiftyJSON'
 end

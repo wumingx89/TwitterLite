@@ -16,15 +16,18 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   AFNetworking: 932ff751f9d6fb1dad0b3af58b7e3ffba0a4e7fd
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 504cb89f68b7db0df89ca654f809ecef93940c87
+PODFILE CHECKSUM: c7cba6d8222d6cb62efe51a38acbe89894d03844
 
 COCOAPODS: 1.3.1
