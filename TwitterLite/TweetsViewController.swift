@@ -10,13 +10,26 @@ import UIKit
 
 class TweetsViewController: UIViewController {
 
+    @IBOutlet weak var tweetsTableView: UITableView!
+    
+    fileprivate var tweets: [Tweet]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("did load tweets table view")
+        
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        tweetsTableView.estimatedRowHeight = 200
+        tweetsTableView.delegate = self
+        tweetsTableView.dataSource = self
 
         TwitterClient.shared.homeTimeLine(success: { (tweets) in
             for tweet in tweets {
                 print(tweet.text!)
             }
+            self.tweets = tweets
+            self.tweetsTableView.reloadData()
         }, failure: nil)
     }
 
@@ -40,3 +53,18 @@ class TweetsViewController: UIViewController {
     */
 
 }
+
+extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets == nil ? 0 : tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: TweetCell.indentifier, for: indexPath) as! TweetCell
+        
+        cell.tweet = tweets[indexPath.row]
+        
+        return cell
+    }
+}
+

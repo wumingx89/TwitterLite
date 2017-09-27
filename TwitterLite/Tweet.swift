@@ -27,6 +27,8 @@ class Tweet: NSObject {
             
             timeStamp = dateFormatter.date(from: timeStampString)
         }
+        
+        print(json)
     }
     
     class func tweets(from jsonArray: [JSON]) -> [Tweet] {
