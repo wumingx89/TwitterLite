@@ -6,10 +6,10 @@
 //  Copyright © 2017 Wuming Xie. All rights reserved.
 //
 
-import UIKit
 import SwiftyJSON
 
 class Tweet: NSObject {
+    var user: User?
     var text: String?
     var timeStamp: Date?
     var retweetCount = 0
@@ -27,6 +27,9 @@ class Tweet: NSObject {
             
             timeStamp = dateFormatter.date(from: timeStampString)
         }
+        
+        user = User(json: json["user"])
+        
         
         print(json)
     }

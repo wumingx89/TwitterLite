@@ -8,12 +8,14 @@
 
 import UIKit
 
+// MARK:- Main view controller
 class TweetsViewController: UIViewController {
 
     @IBOutlet weak var tweetsTableView: UITableView!
     
     fileprivate var tweets: [Tweet]!
     
+    // MARK: Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,12 +34,8 @@ class TweetsViewController: UIViewController {
             self.tweetsTableView.reloadData()
         }, failure: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    // MARK: Action outlets
     @IBAction func onLogout(_ sender: Any) {
         TwitterClient.shared.logout()
     }
@@ -54,6 +52,7 @@ class TweetsViewController: UIViewController {
 
 }
 
+// MARK:- Table view data source/delegate extension
 extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets == nil ? 0 : tweets.count

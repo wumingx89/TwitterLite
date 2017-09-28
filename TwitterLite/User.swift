@@ -6,7 +6,6 @@
 //  Copyright © 2017 Wuming Xie. All rights reserved.
 //
 
-import UIKit
 import SwiftyJSON
 
 class User: NSObject {
