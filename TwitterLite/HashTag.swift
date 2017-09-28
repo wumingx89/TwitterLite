@@ -18,11 +18,15 @@ class HashTag: NSObject {
         if let indexArray = json["indices"].array {
             start = indexArray[0].int
             end = indexArray[1].int
+        } else {
+            start = nil
+            end = nil
         }
+        
         text = json["text"].string
     }
     
-    class func hashTags(from jsonArray: [JSON]) {
+    class func hashTags(from jsonArray: [JSON]) -> [HashTag] {
         var hashTags = [HashTag]()
         for json in jsonArray {
             hashTags.append(HashTag(json: json))
