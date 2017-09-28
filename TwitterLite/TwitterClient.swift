@@ -68,17 +68,17 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func homeTimeLine(success: (([Tweet]) -> ())?, failure: ((Error) -> ())?) {
+    func homeTimeLine(completion: @escaping ([Tweet]?, Error?) -> ()) {
         get("1.1/statuses/home_timeline.json",
             parameters: nil,
             progress: nil,
             success: { (dataTask, response) in
                 if let json = JSON(response as Any).array {
                     let tweets = Tweet.tweets(from: json)
-                    success?(tweets)
+                    completion(tweets, nil)
                 }
         }) { (dataTask, error) in
-            failure?(error)
+            completion(nil, error)
         }
     }
     
