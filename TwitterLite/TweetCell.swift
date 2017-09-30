@@ -9,6 +9,10 @@
 import UIKit
 import AFNetworking
 
+@objc protocol TweetCellDelegate {
+    @objc optional func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet)
+}
+
 class TweetCell: UITableViewCell {
     
     // MARK: Outlets
@@ -17,8 +21,11 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var replyImageView: UIImageView!
+    @IBOutlet weak var retweetImageView: UIImageView!
+    @IBOutlet weak var favoriteImageView: UIImageView!
     
-    // MARK: Properties
+    // MARK: - Properties
     var tweet: Tweet! {
         didSet {
             tweetLabel.text = tweet.text
@@ -37,7 +44,9 @@ class TweetCell: UITableViewCell {
         }
     }
     
-    // MARK: Static variables
+    weak var delegate: TweetCellDelegate?
+    
+    // MARK: - Static variables
     static let indentifier = "TweetCell"
     static let formatter = { () -> DateFormatter in
         let formatter = DateFormatter()
@@ -45,7 +54,7 @@ class TweetCell: UITableViewCell {
         return formatter
     }()
 
-    // MARK: Lifecycle functions
+    // MARK: - Lifecycle functions
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -53,5 +62,17 @@ class TweetCell: UITableViewCell {
         selectionStyle = .none
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
+        
+        // Add tap gesture recognizers to icons
+        replyImageView.isUserInteractionEnabled = true
+        replyImageView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onReply))
+        )
+        
+    }
+    
+    // MARK: - Tweet action functions
+    func onReply() {
+        delegate?.tweetCell?(self, didTapReply: tweet)
     }
 }

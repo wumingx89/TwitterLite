@@ -40,6 +40,9 @@ class TweetsViewController: UIViewController {
         print("Segue: \(segue.identifier ?? "No identifier")")
         switch segue.identifier ?? "" {
         case Constants.SegueIds.replyTweet:
+            let navigationVC = segue.destination as! UINavigationController
+            let destination = navigationVC.topViewController as! ComposeViewController
+            destination.replyToTweet = sender as? Tweet
             fallthrough
         case Constants.SegueIds.compose:
             let navigationVC = segue.destination as! UINavigationController
@@ -136,6 +139,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: TweetCell.indentifier, for: indexPath) as! TweetCell
         
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         
         return cell
@@ -187,5 +191,12 @@ extension TweetsViewController: UIScrollViewDelegate {
                 loadMoreTweets()
             }
         }
+    }
+}
+
+// MARK:- Tweet cell delegate
+extension TweetsViewController: TweetCellDelegate {
+    func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet) {
+        self.performSegue(withIdentifier: Constants.SegueIds.replyTweet, sender: tweet)
     }
 }

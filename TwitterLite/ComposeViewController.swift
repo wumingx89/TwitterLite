@@ -49,8 +49,17 @@ class ComposeViewController: UIViewController {
         bottomView.layer.borderWidth = 0.3
         tweetButton.layer.cornerRadius = 17.0
         tweetButton.layer.masksToBounds = true
-        updateCharactersLeft(140)
-        updateTweetButton(enabled: false)
+        
+        if let replyToUser = replyToTweet?.user?.screenName {
+            placeHolderLabel.isHidden = true
+            let reply = "@\(replyToUser) "
+            tweetTextView.text = reply
+            updateCharactersLeft(140 - reply.characters.count)
+            updateTweetButton(enabled: true)
+        } else {
+            updateCharactersLeft(140)
+            updateTweetButton(enabled: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
