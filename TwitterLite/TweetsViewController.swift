@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 // MARK:- Main view controller
 class TweetsViewController: UIViewController {
@@ -27,7 +28,10 @@ class TweetsViewController: UIViewController {
         setupNavBar()
         setupInfiniteScroll()
 
-        fetchTimeline(animation: nil)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        fetchTimeline {
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
     // MARK: - Navigation
@@ -109,7 +113,7 @@ class TweetsViewController: UIViewController {
         loadingMoreView = InfiniteScrollActivityView(
             frame: CGRect(
                 x: 0,
-                y: tweetsTableView.contentSize.height,
+                y: 0,
                 width: tweetsTableView.bounds.size.width,
                 height: InfiniteScrollActivityView.defaultHeight
             )
@@ -178,7 +182,7 @@ extension TweetsViewController: UIScrollViewDelegate {
                     width: tweetsTableView.bounds.size.width,
                     height: InfiniteScrollActivityView.defaultHeight
                 )
-                
+                loadingMoreView.isHidden = true
                 loadingMoreView.startAnimating()
                 loadMoreTweets()
             }

@@ -10,4 +10,5 @@ target 'TwitterLite' do
   pod 'BDBOAuth1Manager'
   pod 'SwiftyJSON'
   pod 'TTTAttributedLabel'
+  pod 'MBProgressHUD'
 end

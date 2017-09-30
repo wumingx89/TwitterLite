@@ -2,7 +2,7 @@
 
 **Name of your app** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **10.5** hours spent in total
+Time spent: **11.5** hours spent in total
 
 ## User Stories
 
@@ -18,7 +18,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] When composing, you should have a countdown in the upper right for the tweet limit.
+- [x] When composing, you should have a countdown in the upper right for the tweet limit. (Although I moved this to be above the keyboard)
 - [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [ ] Retweeting and favoriting should increment the retweet and favorite count.
 - [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
@@ -27,7 +27,9 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
+- [x] Added loading hud to home timeline view
 - [x] If the user is typing a tweet and hits cancel, app will prompt user to confirm exiting
+- [x] The character countdown while tweeting changes to red when there are 20 or less characters left, like in the real Twitter app.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
