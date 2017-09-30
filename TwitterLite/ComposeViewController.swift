@@ -8,8 +8,10 @@
 
 import UIKit
 
+// MARK:- ComposeViewController
 class ComposeViewController: UIViewController {
     
+    // MARK: - Outlets
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var placeHolderLabel: UILabel!
     @IBOutlet weak var bottomView: UIView!
@@ -20,6 +22,7 @@ class ComposeViewController: UIViewController {
     var tweetCompletionHandler: ((Tweet?, Error?) -> ())!
     var replyToTweet: Tweet?
     
+    // MARK: - View lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,13 +57,10 @@ class ComposeViewController: UIViewController {
         super.viewDidAppear(animated)
         tweetTextView.becomeFirstResponder()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    // Need to remove observers when this class is deinitialized
     deinit {
+        print("===================ComposeVC deinitializing===================")
         NotificationCenter.default.removeObserver(
             self, name: Notification.Name.UIKeyboardWillHide, object: nil
         )
@@ -69,6 +69,7 @@ class ComposeViewController: UIViewController {
         )
     }
     
+    // MARK: - Action outlets
     @IBAction func onTweet(_ sender: UIButton) {
         TwitterClient.shared.postTweet(
             tweetTextView.text,
@@ -101,6 +102,7 @@ class ComposeViewController: UIViewController {
         }
     }
     
+    // MARK: - Keyboard/Typing functions
     func moveBottomView(_ notification: Notification) {
         let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue
         bottomConstraint.constant = value.cgRectValue.size.height
@@ -117,17 +119,6 @@ class ComposeViewController: UIViewController {
             self.tweetButton.alpha = enabled ? 1.0 : 0.3
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK:- Text view delegate methods

@@ -13,6 +13,8 @@ class TweetsViewController: UIViewController {
 
     @IBOutlet weak var tweetsTableView: UITableView!
     
+    fileprivate var loadingMoreView: InfiniteScrollActivityView!
+    fileprivate var isMoreDataLoading = false
     fileprivate let twitterClient = TwitterClient.shared
     fileprivate var tweets: [Tweet]!
     
@@ -21,8 +23,9 @@ class TweetsViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        addRefreshControl()
+        setupRefreshControl()
         setupNavBar()
+        setupInfiniteScroll()
 
         fetchTimeline(animation: nil)
     }
@@ -59,7 +62,7 @@ class TweetsViewController: UIViewController {
         performSegue(withIdentifier: "composeTweetSegue", sender: self)
     }
     
-    func fetchTimeline(animation: (() -> ())?) {
+    fileprivate func fetchTimeline(animation: (() -> ())?) {
         //TODO: Show network error on network error
         twitterClient.homeTimeLine { (tweets, error) in
             self.tweets = tweets ?? []
@@ -67,6 +70,19 @@ class TweetsViewController: UIViewController {
             self.tweetsTableView.reloadData()
             
             if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    fileprivate func loadMoreTweets() {
+        twitterClient.homeTimeLine { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets.append(contentsOf: tweets)
+                self.tweetsTableView.reloadData()
+                self.loadingMoreView.stopAnimating()
+            } else {
+                // TODO: Show network error
                 print(error!.localizedDescription)
             }
         }
@@ -87,6 +103,23 @@ class TweetsViewController: UIViewController {
         composeImageView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(onCompose))
         )
+    }
+    
+    private func setupInfiniteScroll() {
+        loadingMoreView = InfiniteScrollActivityView(
+            frame: CGRect(
+                x: 0,
+                y: tweetsTableView.contentSize.height,
+                width: tweetsTableView.bounds.size.width,
+                height: InfiniteScrollActivityView.defaultHeight
+            )
+        )
+        loadingMoreView.isHidden = true
+        tweetsTableView.addSubview(loadingMoreView)
+        
+        var insets = tweetsTableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tweetsTableView.contentInset = insets
     }
 }
 
@@ -114,7 +147,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK:- Pull to refresh
 extension TweetsViewController {
-    fileprivate func addRefreshControl() {
+    fileprivate func setupRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tweetsTableView.insertSubview(refreshControl, at: 0)
@@ -129,3 +162,26 @@ extension TweetsViewController {
     }
 }
 
+// MARK:- Scroll view delegata
+extension TweetsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !isMoreDataLoading {
+        let scrollViewContentHeight = tweetsTableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tweetsTableView.bounds.size.height
+            
+            if scrollView.contentOffset.y > scrollOffsetThreshold && tweetsTableView.isDragging {
+                isMoreDataLoading = true
+                
+                loadingMoreView.frame = CGRect(
+                    x: 0,
+                    y: tweetsTableView.contentSize.height,
+                    width: tweetsTableView.bounds.size.width,
+                    height: InfiniteScrollActivityView.defaultHeight
+                )
+                
+                loadingMoreView.startAnimating()
+                loadMoreTweets()
+            }
+        }
+    }
+}

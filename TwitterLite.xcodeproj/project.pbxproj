@@ -24,6 +24,7 @@
 		B976FA251F7B22B800849D25 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA241F7B22B800849D25 /* TweetsViewController.swift */; };
 		B976FA271F7B642C00849D25 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA261F7B642C00849D25 /* TweetCell.swift */; };
 		B976FA511F7EEB5E00849D25 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA501F7EEB5E00849D25 /* ComposeViewController.swift */; };
+		B976FA551F7F958D00849D25 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA541F7F958D00849D25 /* InfiniteScrollActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		B976FA241F7B22B800849D25 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		B976FA261F7B642C00849D25 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		B976FA501F7EEB5E00849D25 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		B976FA541F7F958D00849D25 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				B976FA261F7B642C00849D25 /* TweetCell.swift */,
+				B976FA541F7F958D00849D25 /* InfiniteScrollActivityView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				B976FA511F7EEB5E00849D25 /* ComposeViewController.swift in Sources */,
 				B976FA271F7B642C00849D25 /* TweetCell.swift in Sources */,
 				B976FA051F7A125B00849D25 /* AppDelegate.swift in Sources */,
+				B976FA551F7F958D00849D25 /* InfiniteScrollActivityView.swift in Sources */,
 				B976FA251F7B22B800849D25 /* TweetsViewController.swift in Sources */,
 				B976FA231F7B135D00849D25 /* TwitterClient.swift in Sources */,
 				7C0EB4B31F7D8F02002227F7 /* HashTag.swift in Sources */,
