@@ -113,8 +113,12 @@ class ComposeViewController: UIViewController {
     
     // MARK: - Keyboard/Typing functions
     func moveBottomView(_ notification: Notification) {
-        let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue
-        bottomConstraint.constant = value.cgRectValue.size.height
+        if notification.name == Notification.Name.UIKeyboardWillShow {
+            let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue
+            bottomConstraint.constant = value.cgRectValue.size.height
+        } else {
+            bottomConstraint.constant = 0.0
+        }
     }
     
     func updateCharactersLeft(_ count: Int) {
