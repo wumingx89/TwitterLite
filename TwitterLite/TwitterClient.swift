@@ -82,6 +82,24 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    func postTweet(_ tweet: String, replyToId: String?, completion: @escaping (Tweet?, Error?) -> ()) {
+        var params = ["status": tweet]
+        
+        if let replyToId = replyToId {
+            params["in_reply_to_status"] = replyToId
+        }
+        
+        post("1.1/statuses/update.json",
+             parameters: params,
+             progress: nil,
+             success: { (dataTask, response) in
+                let tweet = Tweet(json: JSON(response as Any))
+                completion(tweet, nil)
+        }) { (dataTask, error) in
+            completion(nil, error)
+        }
+    }
+    
     func currentAccount(success: @escaping (User) -> (), failure: ((Error) -> ())?) {
         get("1.1/account/verify_credentials.json",
             parameters: nil,

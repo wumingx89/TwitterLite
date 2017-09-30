@@ -9,4 +9,5 @@ target 'TwitterLite' do
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
   pod 'SwiftyJSON'
+  pod 'TTTAttributedLabel'
 end

@@ -23,6 +23,7 @@
 		B976FA231F7B135D00849D25 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA221F7B135D00849D25 /* TwitterClient.swift */; };
 		B976FA251F7B22B800849D25 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA241F7B22B800849D25 /* TweetsViewController.swift */; };
 		B976FA271F7B642C00849D25 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA261F7B642C00849D25 /* TweetCell.swift */; };
+		B976FA511F7EEB5E00849D25 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B976FA501F7EEB5E00849D25 /* ComposeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		B976FA221F7B135D00849D25 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		B976FA241F7B22B800849D25 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		B976FA261F7B642C00849D25 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		B976FA501F7EEB5E00849D25 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				B976FA191F7A273600849D25 /* LoginViewController.swift */,
 				B976FA241F7B22B800849D25 /* TweetsViewController.swift */,
 				7C0EB4AE1F7C4135002227F7 /* DetailsViewController.swift */,
+				B976FA501F7EEB5E00849D25 /* ComposeViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -246,12 +249,14 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -288,6 +293,7 @@
 				7C0EB4AF1F7C4135002227F7 /* DetailsViewController.swift in Sources */,
 				B976FA1A1F7A273600849D25 /* LoginViewController.swift in Sources */,
 				7C0EB4B11F7D8E45002227F7 /* TweetEntity.swift in Sources */,
+				B976FA511F7EEB5E00849D25 /* ComposeViewController.swift in Sources */,
 				B976FA271F7B642C00849D25 /* TweetCell.swift in Sources */,
 				B976FA051F7A125B00849D25 /* AppDelegate.swift in Sources */,
 				B976FA251F7B22B800849D25 /* TweetsViewController.swift in Sources */,

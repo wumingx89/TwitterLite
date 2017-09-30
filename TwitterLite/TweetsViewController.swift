@@ -16,30 +16,48 @@ class TweetsViewController: UIViewController {
     fileprivate let twitterClient = TwitterClient.shared
     fileprivate var tweets: [Tweet]!
     
-    // MARK: Lifecycle functions
+    // MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
         addRefreshControl()
+        setupNavBar()
 
         fetchTimeline(animation: nil)
     }
     
-    // MARK: Action outlets
-    @IBAction func onLogout(_ sender: Any) {
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        print("Segue: \(segue.identifier ?? "No identifier")")
+        switch segue.identifier ?? "" {
+        case Constants.SegueIds.replyTweet:
+            fallthrough
+        case Constants.SegueIds.compose:
+            let navigationVC = segue.destination as! UINavigationController
+            let destination = navigationVC.topViewController as! ComposeViewController
+            destination.tweetCompletionHandler = { (tweet, error) in
+                if let tweet = tweet {
+                    self.tweets.insert(tweet, at: 0)
+                    self.tweetsTableView.reloadData()
+                } else {
+                    // TODO: Show error
+                    print(error.debugDescription)
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    func onLogout() {
         TwitterClient.shared.logout()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func onCompose() {
+        performSegue(withIdentifier: "composeTweetSegue", sender: self)
     }
-    */
     
     func fetchTimeline(animation: (() -> ())?) {
         //TODO: Show network error on network error
@@ -52,6 +70,23 @@ class TweetsViewController: UIViewController {
                 print(error!.localizedDescription)
             }
         }
+    }
+    
+    fileprivate func setupNavBar() {
+        let logoutImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        logoutImageView.image = #imageLiteral(resourceName: "logout")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoutImageView)
+        logoutImageView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onLogout))
+        )
+        
+        // Set up compose bar item
+        let composeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        composeImageView.image = #imageLiteral(resourceName: "compose")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: composeImageView)
+        composeImageView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onCompose))
+        )
     }
 }
 
