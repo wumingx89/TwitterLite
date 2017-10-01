@@ -93,16 +93,17 @@ class ComposeViewController: UIViewController {
     @IBAction func onCancel(_ sender: UIBarButtonItem) {
         if !tweetTextView.text.isEmpty {
             let alertController = UIAlertController(
-                title: "Cancel Tweet",
+                title: nil,
                 message: "You have an unfinished tweet. Are you sure you want to leave?",
                 preferredStyle: .actionSheet
             )
             
-            alertController.addAction(UIAlertAction(title: "Stay", style: .default) { (action) in })
-            alertController.addAction(UIAlertAction(title: "Leave", style: .destructive) { (action) in
+            alertController.addAction(UIAlertAction(title: "Discard draft", style: .destructive) { (action) in
                 self.view.endEditing(true)
                 self.dismiss(animated: true, completion: nil)
             })
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             present(alertController, animated: true, completion: nil)
         } else {
