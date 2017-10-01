@@ -80,7 +80,7 @@ class ComposeViewController: UIViewController {
     
     // MARK: - Action outlets
     @IBAction func onTweet(_ sender: UIButton) {
-        TwitterClient.shared.postTweet(
+        TwitterClient.shared.tweet(
             tweetTextView.text,
             replyToId: nil,
             completion: tweetCompletionHandler

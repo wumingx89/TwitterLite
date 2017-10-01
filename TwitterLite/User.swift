@@ -13,6 +13,7 @@ class User: NSObject {
     
     var userJSON: JSON!
     var name: String?
+    var id: String?
     var screenName: String?
     var profileUrl: URL?
     var tagline: String?
@@ -45,11 +46,16 @@ class User: NSObject {
     init(json: JSON) {
         userJSON = json
         name = json["name"].string
+        id = json["id_str"].string
         screenName = json["screen_name"].string
         tagline = json["description"].string
         
         if let profilePicUrl = json["profile_image_url_https"].string {
             profileUrl = URL(string: profilePicUrl)
         }
+    }
+    
+    class func isCurrentUser(_ user: User?) -> Bool {
+        return user != nil && user!.id == User._currentUser?.id
     }
 }

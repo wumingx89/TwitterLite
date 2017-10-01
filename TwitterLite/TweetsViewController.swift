@@ -84,6 +84,7 @@ class TweetsViewController: UIViewController {
     
     fileprivate func loadMoreTweets() {
         twitterClient.homeTimeLine { (tweets, error) in
+            self.isMoreDataLoading = false
             if let tweets = tweets {
                 self.tweets.append(contentsOf: tweets)
                 self.tweetsTableView.reloadData()
@@ -138,9 +139,11 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: TweetCell.indentifier, for: indexPath) as! TweetCell
-        
-        cell.delegate = self
+
         cell.tweet = tweets[indexPath.row]
+        cell.replyHandler = replyHandler
+        cell.retweetHandler = retweetHandler
+        cell.favoriteHandler = favoriteHandler
         
         return cell
     }
@@ -194,9 +197,56 @@ extension TweetsViewController: UIScrollViewDelegate {
     }
 }
 
-// MARK:- Tweet cell delegate
-extension TweetsViewController: TweetCellDelegate {
-    func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet) {
-        self.performSegue(withIdentifier: Constants.SegueIds.replyTweet, sender: tweet)
+// MARK:- Tweet engagement handlers
+extension TweetsViewController {
+    func replyHandler(_ tweet: Tweet) {
+        performSegue(withIdentifier: Constants.SegueIds.replyTweet, sender: tweet)
+    }
+    
+    func retweetHandler(_ tweet: Tweet, _ completion: @escaping () -> ()) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if !tweet.retweeted {
+            alertController.addAction(
+                UIAlertAction(title: "Retweet", style: .default) { (action) in
+                    self.twitterClient.retweet(tweet.id!) { (error) in
+                        if error == nil {
+                            tweet.changeRTStatus()
+                            completion()
+                        }
+                    }
+            })
+        } else {
+            alertController.addAction(
+                UIAlertAction(title: "Undo Retweet", style: .destructive) { (action) in
+                    self.twitterClient.unretweet(tweet.id) { (error) in
+                        if error == nil {
+                            tweet.changeRTStatus()
+                            completion()
+                        }
+                    }
+            })
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func favoriteHandler(_ tweet: Tweet, _ completion: @escaping () -> ()) {
+        if !tweet.favorited {
+            self.twitterClient.favorite(tweet.id) { (error) in
+                if error == nil {
+                    tweet.changeFavoriteStatus()
+                    completion()
+                }
+            }
+        } else {
+            self.twitterClient.unfavorite(tweet.id) { (error) in
+                if error == nil {
+                    tweet.changeFavoriteStatus()
+                    completion()
+                }
+            }
+        }
     }
 }

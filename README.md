@@ -2,7 +2,7 @@
 
 **Name of your app** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **11.5** hours spent in total
+Time spent: **15.5** hours spent in total
 
 ## User Stories
 
@@ -22,18 +22,21 @@ The following **optional** features are implemented:
 - [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [ ] Retweeting and favoriting should increment the retweet and favorite count.
 - [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
-- [ ] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
-- [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [x] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
+- [x] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
 The following **additional** features are implemented:
 
+- [x] Using SwiftyJSON for easier json deserialization
 - [x] Added loading hud to home timeline view
 - [x] If the user is typing a tweet and hits cancel, app will prompt user to confirm exiting
 - [x] The character countdown while tweeting changes to red when there are 20 or less characters left, like in the real Twitter app.
+- [x] Retweeting and favoriting animations on the home timeline view (Similar to what's there in the real app)
+
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
+1. Both the tweet cell and the tweet detail views allow the user to reply/retweet/favorite a tweet. So there seems to be a lot of shared functionality. I'm wondering if there's a good way to reuse code here?
 2.
 
 ## Video Walkthrough

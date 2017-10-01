@@ -21,6 +21,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error?) -> ())?
     
+    // MARK:- API endpoints
+    // MARK: - Authentication
     func login(success: @escaping () -> (), failure: @escaping (Error?) -> ()) {
         loginSuccess = success
         loginFailure = failure
@@ -68,6 +70,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    // MARK: - Account
+    func currentAccount(success: @escaping (User) -> (), failure: ((Error) -> ())?) {
+        get("1.1/account/verify_credentials.json",
+            parameters: nil,
+            progress: nil,
+            success: { (task, response) in
+                let user = User(json: JSON(response as Any))
+                success(user)
+                
+                print(user.name ?? "No name")
+                print(user.tagline ?? "No tagline")
+        }, failure: { (task, error) in
+            failure?(error)
+        })
+    }
+    
+    // MARK: - Home timeline
     func homeTimeLine(maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
         var params: [String: String]?
         if let maxId = maxId {
@@ -87,7 +106,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func postTweet(_ tweet: String, replyToId: String?, completion: @escaping (Tweet?, Error?) -> ()) {
+    // MARK: - Tweet
+    func tweet(_ tweet: String, replyToId: String?, completion: @escaping (Tweet?, Error?) -> ()) {
         var params = ["status": tweet]
         
         if let replyToId = replyToId {
@@ -105,18 +125,70 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func currentAccount(success: @escaping (User) -> (), failure: ((Error) -> ())?) {
-        get("1.1/account/verify_credentials.json",
-            parameters: nil,
-            progress: nil,
-            success: { (task, response) in
-                let user = User(json: JSON(response as Any))
-                success(user)
-                
-                print(user.name ?? "No name")
-                print(user.tagline ?? "No tagline")
-        }, failure: { (task, error) in
-            failure?(error)
-        })
+    // MARK: - Retweet
+    func retweet(_ tweetId: String, completion: @escaping (Error?) -> ()) {
+        post("1.1/statuses/retweet/\(tweetId).json",
+             parameters: nil,
+             progress: nil,
+             success: { (dataTask, response) in
+                completion(nil)
+        }) { (task, error) in
+            completion(error)
+        }
+    }
+    
+    // MARK: - Unretweet
+    func unretweet(_ tweetId: String?, completion: @escaping (Error?) -> ()) {
+        if let tweetId = tweetId {
+            post("1.1/statuses/unretweet/\(tweetId).json",
+                parameters: nil,
+                progress: nil,
+                success: { (task, response) in
+                    completion(nil)
+            }, failure: { (task, error) in
+                completion(error)
+            })
+        }
+    }
+    
+    // MARK: - Delete tweet
+    func untweet(_ tweetId: String, completion: @escaping (Tweet?, Error?) -> ()) {
+        post("1.1/statuses/destroy/\(tweetId).json",
+             parameters: nil,
+             progress: nil,
+             success: { (dataTask, response) in
+                let deletedTweet = Tweet(json: JSON(response as Any))
+                completion(deletedTweet, nil)
+        }) { (dataTask, error) in
+            completion(nil, error)
+        }
+    }
+    
+    // MARK: - Favorite
+    func favorite(_ tweetId: String?, completion: @escaping (Error?) -> ()) {
+        if let tweetId = tweetId {
+            post("1.1/favorites/create.json",
+                 parameters: ["id": tweetId],
+                 progress: nil,
+                 success: { (dataTask, response) in
+                    completion(nil)
+            }) { (dataTask, error) in
+                completion(error)
+            }
+        }
+    }
+    
+    // MARK: - Unfavorite
+    func unfavorite(_ remoteId: String?, completion: @escaping (Error?) -> ()) {
+        if let remoteId = remoteId {
+            post("1.1/favorites/destroy.json",
+                 parameters: ["id": remoteId],
+                 progress: nil,
+                 success: { (dataTask, response) in
+                    completion(nil)
+            }) { (dataTask, error) in
+                completion(error)
+            }
+        }
     }
 }
