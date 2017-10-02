@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+import SwiftDate
 
 class TweetCell: UITableViewCell {
     
@@ -49,7 +49,7 @@ class TweetCell: UITableViewCell {
             
             dateLabel.text = nil
             if let tweetDate = tweet.timeStamp {
-                dateLabel.text = DateFormatter.localizedString(from: tweetDate, dateStyle: .short, timeStyle: .short)
+                dateLabel.text = timeSince(tweetDate)
             }
             
             profileImage.image = nil
@@ -138,5 +138,22 @@ class TweetCell: UITableViewCell {
                 imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             })
         }
+    }
+    
+    // MARK: - Time since tweet posted
+    func timeSince(_ time: Date) -> String {
+        let components: [Calendar.Component] = [.day, .hour, .minute, .second]
+        let mapping: [Calendar.Component: String] = [.day: "d", .hour: "h", .minute: "m", .second: "s"]
+        let times = time.timeIntervalSinceNow.in(components)
+        
+        for component in components {
+            if let elapsedTime = times[component] {
+                if abs(elapsedTime) > 0 {
+                    return "\(abs(elapsedTime))\(mapping[component]!)"
+                }
+            }
+        }
+        
+        return ""
     }
 }

@@ -155,7 +155,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: TweetCell.indentifier, for: indexPath) as! TweetCell
+        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: Constants.CellTypes.tweetCell, for: indexPath) as! TweetCell
 
         cell.tweet = tweets[indexPath.row]
         cell.replyHandler = replyHandler

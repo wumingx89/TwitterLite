@@ -17,7 +17,11 @@ class DetailsViewController: UIViewController {
     var completionHandler: ((Tweet?) -> ())?
     var retweetHandler: ((Tweet, @escaping () -> ()) -> ())?
     var favoriteHandler: ((Tweet, @escaping () -> ()) -> ())?
-    let tableStructure = ["TweetDetailCell", "TweetCountCell", "TweetActionCell"]
+    let tableStructure = [
+        Constants.CellTypes.tweetDetailCell,
+        Constants.CellTypes.tweetCountCell,
+        Constants.CellTypes.tweetActionCell
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,17 +74,16 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = tableStructure[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellType, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableStructure[indexPath.row], for: indexPath)
         
-        switch cellType {
-        case "TweetDetailCell":
+        switch indexPath.row {
+        case 0:
             let detailCell = cell as! TweetDetailCell
             detailCell.updateCell(withTweet: tweet)
-        case "TweetCountCell":
+        case 1:
             let countCell = cell as! TweetCountCell
             countCell.setCell(withTweet: tweet)
-        case "TweetActionCell":
+        case 2:
             let actionCell = cell as! TweetActionCell
             actionCell.tweet = tweet
             actionCell.delegate = self
