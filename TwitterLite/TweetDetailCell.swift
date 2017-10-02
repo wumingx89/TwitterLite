@@ -17,6 +17,7 @@ class TweetDetailCell: UITableViewCell {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet var rtConstraints: [NSLayoutConstraint]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,8 +33,14 @@ class TweetDetailCell: UITableViewCell {
             topRTView.isHidden = false
             originalUser = tweet.originalTweeter
             retweetNameLabel.text = "\(User.isCurrentUser(tweet.user) ? "You" : tweet.user?.name ?? "") Retweeted"
+            for constraint in rtConstraints {
+                constraint.constant = 4.0
+            }
         } else {
             originalUser = tweet.user
+            for constraint in rtConstraints {
+                constraint.constant = 0.0
+            }
             topRTView.isHidden = true
         }
         

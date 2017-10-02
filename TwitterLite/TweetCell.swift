@@ -22,6 +22,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyImageView: UIImageView!
     @IBOutlet weak var retweetImageView: UIImageView!
     @IBOutlet weak var favoriteImageView: UIImageView!
+    @IBOutlet var rtConstraints: [NSLayoutConstraint]!
     
     // MARK: - Properties
     var tweet: Tweet! {
@@ -31,8 +32,14 @@ class TweetCell: UITableViewCell {
                 topRTView.isHidden = false
                 originalUser = tweet.originalTweeter
                 retweetNameLabel.text = "\(User.isCurrentUser(tweet.user) ? "You" : tweet.user?.name ?? "") Retweeted"
+                for constraint in rtConstraints {
+                    constraint.constant = 4.0
+                }
             } else {
                 originalUser = tweet.user
+                for constraint in rtConstraints {
+                    constraint.constant = 0.0
+                }
                 topRTView.isHidden = true
             }
             
@@ -58,9 +65,6 @@ class TweetCell: UITableViewCell {
     var replyHandler: ((Tweet) -> ())?
     var retweetHandler: ((Tweet, @escaping () -> ()) -> ())?
     var favoriteHandler: ((Tweet, @escaping () -> ()) -> ())?
-    
-    // MARK: - Static variables
-    static let indentifier = "TweetCell"
 
     // MARK: - Lifecycle functions
     override func awakeFromNib() {
@@ -72,6 +76,10 @@ class TweetCell: UITableViewCell {
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
         profileImage.layer.borderColor = Constants.TwitterColor.darkGray.cgColor
         profileImage.layer.borderWidth = 0.5
+        
+        // Font color
+        dateLabel.textColor = Constants.TwitterColor.lightGray
+        handleLabel.textColor = Constants.TwitterColor.lightGray
         
         // Add tap gesture recognizers to icons
         replyImageView.isUserInteractionEnabled = true

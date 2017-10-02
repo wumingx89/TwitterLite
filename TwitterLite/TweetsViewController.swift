@@ -37,7 +37,7 @@ class TweetsViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        print("Segue: \(segue.identifier ?? "No identifier")")
+        
         switch segue.identifier ?? "" {
         case Constants.SegueIds.replyTweet:
             let navigationVC = segue.destination as! UINavigationController

@@ -23,10 +23,7 @@ class User: NSObject {
         get {
             if _currentUser == nil {
                 if let jsonString = UserDefaults.standard.string(forKey: "currentUser") {
-                    print(jsonString)
                     _currentUser = User(json: JSON(parseJSON: jsonString))
-                } else {
-                    print("somethings messed up")
                 }
             }
             return _currentUser

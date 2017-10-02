@@ -40,9 +40,6 @@ class Tweet: NSObject {
             originalTweeter = User(json: retweetStatus["user"]!)
             text = retweetStatus["text"]?.string
         }
-        
-        
-        print(json)
     }
     
     func isRetweet() -> Bool {
