@@ -1,8 +1,8 @@
-# Project 3 - *Name of App Here*
+# Project 3 - *TwitterLite*
 
-**Name of your app** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
+**TwitterLite** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **15.5** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -14,14 +14,14 @@ The following **required** functionality is completed:
 - [x] In the home timeline, user can view tweet with the user profile picture, username, tweet text, and timestamp.  In other words, design the custom cell with the proper Auto Layout settings.  You will also need to augment the model classes.
 - [x] User can pull to refresh.
 - [x] User can compose a new tweet by tapping on a compose button.
-- [ ] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
+- [x] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
 
 The following **optional** features are implemented:
 
 - [x] When composing, you should have a countdown in the upper right for the tweet limit. (Although I moved this to be above the keyboard)
 - [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
-- [ ] Retweeting and favoriting should increment the retweet and favorite count.
-- [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
+- [x] Retweeting and favoriting should increment the retweet and favorite count.
+- [x] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
 - [x] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
 - [x] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
@@ -31,13 +31,15 @@ The following **additional** features are implemented:
 - [x] Added loading hud to home timeline view
 - [x] If the user is typing a tweet and hits cancel, app will prompt user to confirm exiting
 - [x] The character countdown while tweeting changes to red when there are 20 or less characters left, like in the real Twitter app.
-- [x] Retweeting and favoriting animations on the home timeline view (Similar to what's there in the real app)
+- [x] Retweeting and favoriting animations, similar to what's in the real app
+- [x] Retweeting will show an action sheet similar to what's in the real app
+- [x] Added app icon and launch screen image
 
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. Both the tweet cell and the tweet detail views allow the user to reply/retweet/favorite a tweet. So there seems to be a lot of shared functionality. I'm wondering if there's a good way to reuse code here?
-2.
+2. I'm interested in learning more about how to embed video playback/images into table view cell.
 
 ## Video Walkthrough
 
@@ -49,7 +51,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+For me, some of the difficulties surrounding this project was the inconsistencies of the Twitter API itself. And the shear size of the responses made it somewhat hard to find/debug certain things. Other than that, I also spent some time thinking about how best to share functionality between different views (ie: retweeting, and favoriting). I'm not sure if the solution I came up with is the best way to do it.
 
 ## License
 
