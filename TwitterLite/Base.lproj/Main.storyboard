@@ -126,9 +126,9 @@
                                                         <constraint firstAttribute="bottom" secondItem="Hjl-od-mPZ" secondAttribute="bottom" id="xo4-rS-M6r"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24 Aug 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLj-BP-UYb">
-                                                    <rect key="frame" x="283.5" y="228.5" width="75.5" height="15.5"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 hr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLj-BP-UYb">
+                                                    <rect key="frame" x="336" y="228.5" width="23" height="15.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -167,7 +167,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Seahawks Retweeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6V-By-Hxj">
-                                                                    <rect key="frame" x="68" y="0.0" width="118.5" height="50"/>
+                                                                    <rect key="frame" x="68" y="4" width="118.5" height="42"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -176,9 +176,8 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="2T8-xH-94F" firstAttribute="centerY" secondItem="OpQ-Pv-TGw" secondAttribute="centerY" id="VWI-Xo-Vaq"/>
-                                                                <constraint firstItem="B6V-By-Hxj" firstAttribute="centerY" secondItem="2T8-xH-94F" secondAttribute="centerY" id="Zty-mb-oW3"/>
-                                                                <constraint firstItem="B6V-By-Hxj" firstAttribute="top" secondItem="OpQ-Pv-TGw" secondAttribute="top" id="rLm-MS-frC"/>
-                                                                <constraint firstAttribute="bottom" secondItem="B6V-By-Hxj" secondAttribute="bottom" id="ry0-fh-TZU"/>
+                                                                <constraint firstItem="B6V-By-Hxj" firstAttribute="top" secondItem="OpQ-Pv-TGw" secondAttribute="top" constant="4" id="rLm-MS-frC"/>
+                                                                <constraint firstAttribute="bottom" secondItem="B6V-By-Hxj" secondAttribute="bottom" constant="4" id="ry0-fh-TZU"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -233,6 +232,8 @@
                                             <outlet property="retweetNameLabel" destination="B6V-By-Hxj" id="mzS-AP-MeT"/>
                                             <outlet property="topRTView" destination="OpQ-Pv-TGw" id="YUz-HG-6Za"/>
                                             <outlet property="tweetLabel" destination="Hjl-od-mPZ" id="SZh-zP-Boc"/>
+                                            <outletCollection property="rtConstraints" destination="ry0-fh-TZU" collectionClass="NSMutableArray" id="SkZ-U0-UQY"/>
+                                            <outletCollection property="rtConstraints" destination="rLm-MS-frC" collectionClass="NSMutableArray" id="GYb-9b-NWq"/>
                                             <segue destination="ZVW-My-JJV" kind="show" identifier="openTweetSegue" id="8Kj-87-hky"/>
                                         </connections>
                                     </tableViewCell>
@@ -378,7 +379,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="255"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Jv-ay-Plm" id="G72-BU-uSr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="254.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="d4n-nh-Mku">
@@ -388,7 +389,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seattle Seahawks Retweeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ten-vZ-Ark">
-                                                                    <rect key="frame" x="82" y="0.0" width="171" height="30"/>
+                                                                    <rect key="frame" x="82" y="4" width="171" height="22"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -404,9 +405,9 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="Ten-vZ-Ark" firstAttribute="centerY" secondItem="Jpq-IM-e24" secondAttribute="centerY" id="1OE-Sf-law"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Ten-vZ-Ark" secondAttribute="bottom" id="E9C-jM-eP1"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Ten-vZ-Ark" secondAttribute="bottom" constant="4" id="E9C-jM-eP1"/>
                                                                 <constraint firstItem="Ten-vZ-Ark" firstAttribute="centerY" secondItem="NAH-KN-x7r" secondAttribute="centerY" id="hxl-Rg-zMv"/>
-                                                                <constraint firstItem="Ten-vZ-Ark" firstAttribute="top" secondItem="Jpq-IM-e24" secondAttribute="top" id="qBJ-ub-vbo"/>
+                                                                <constraint firstItem="Ten-vZ-Ark" firstAttribute="top" secondItem="Jpq-IM-e24" secondAttribute="top" constant="4" id="qBJ-ub-vbo"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -480,13 +481,15 @@
                                             <outlet property="timeLabel" destination="QoW-Zl-iTW" id="VGW-FI-vbC"/>
                                             <outlet property="topRTView" destination="Jpq-IM-e24" id="GqT-ni-8E4"/>
                                             <outlet property="tweetLabel" destination="jTI-K5-wUj" id="MlB-DN-q5M"/>
+                                            <outletCollection property="rtConstraints" destination="qBJ-ub-vbo" collectionClass="NSMutableArray" id="Chj-KY-b92"/>
+                                            <outletCollection property="rtConstraints" destination="E9C-jM-eP1" collectionClass="NSMutableArray" id="1ak-Iv-ove"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCountCell" rowHeight="52" id="bLr-2x-tfR" customClass="TweetCountCell" customModule="TwitterLite" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="283" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLr-2x-tfR" id="kjQ-12-J5q">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="111" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmM-R4-FbZ">
@@ -541,7 +544,7 @@
                                         <rect key="frame" x="0.0" y="335" width="375" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j13-TU-eIT" id="ebn-e8-LIJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="42.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply" translatesAutoresizingMaskIntoConstraints="NO" id="NYN-ve-3eT">
@@ -671,6 +674,6 @@
         <image name="twitter_logo" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Wjt-Co-NYd"/>
+        <segue reference="uxH-uB-8dN"/>
     </inferredMetricsTieBreakers>
 </document>

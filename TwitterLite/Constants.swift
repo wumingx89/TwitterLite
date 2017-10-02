@@ -31,11 +31,18 @@ struct Constants {
         static let primaryBlue = Constants.colorHelper(r: 29, g: 161, b: 242, a: 1)
         static let black = Constants.colorHelper(r: 20, g: 23, b: 26, a: 1)
         static let darkGray = Constants.colorHelper(r: 101, g: 119, b: 134, a: 1)
-        static let lightGray = Constants.colorHelper(r: 170, g: 184, b: 1941, a: 1)
+        static let lightGray = Constants.colorHelper(r: 170, g: 184, b: 194, a: 1)
     }
     
     struct EventId {
         static let newTweet = "TwitterLite_NewTweet"
+    }
+    
+    struct CellTypes {
+        static let tweetCell = "TweetCell"
+        static let tweetDetailCell = "TweetDetailCell"
+        static let tweetCountCell = "TweetCountCell"
+        static let tweetActionCell = "TweetActionCell"
     }
     
     static func colorHelper(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {

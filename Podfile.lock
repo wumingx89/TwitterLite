@@ -17,6 +17,7 @@ PODS:
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
   - MBProgressHUD (1.0.0)
+  - SwiftDate (4.3.0)
   - SwiftyJSON (3.1.4)
   - TTTAttributedLabel (2.0.0)
 
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
   - MBProgressHUD
+  - SwiftDate (~> 4.3.0)
   - SwiftyJSON
   - TTTAttributedLabel
 
@@ -31,9 +33,10 @@ SPEC CHECKSUMS:
   AFNetworking: 932ff751f9d6fb1dad0b3af58b7e3ffba0a4e7fd
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  SwiftDate: 64e2312711c5c506f7b51794308ce91f19eb494a
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 27069f5b13936b5c8e95f90b6e1b6eeac25a29ba
+PODFILE CHECKSUM: 20fb47d1f1d0fa6ae8e0da4aabddf450d3e1e253
 
 COCOAPODS: 1.3.1

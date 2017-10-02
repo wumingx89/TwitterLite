@@ -11,4 +11,5 @@ target 'TwitterLite' do
   pod 'SwiftyJSON'
   pod 'TTTAttributedLabel'
   pod 'MBProgressHUD'
+  pod 'SwiftDate', '~> 4.3.0'
 end
