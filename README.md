@@ -47,6 +47,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://i.imgur.com/4VOolRE.gif' title='Login/Logout' width='' alt='Login/Logout' />
 
+<img src='https://i.imgur.com/qFS5Qav.gif' title='Tweet Details' alt='Tweet Details' />
+
+<img src='https://i.imgur.com/v6Q8pZB.gif' title='Compose Tweet' alt='Compose Tweet' />
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
