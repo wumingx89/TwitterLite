@@ -24,6 +24,7 @@ struct Constants {
         static let compose = "composeTweetSegue"
         static let replyTweet = "replyTweetSegue"
         static let openTweet = "openTweetSegue"
+        static let tweetDetailReply = "tweetDetailReplySegue"
     }
     
     struct TwitterColor {

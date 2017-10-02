@@ -56,6 +56,21 @@ class TweetsViewController: UIViewController {
                     print(error.debugDescription)
                 }
             }
+        case Constants.SegueIds.openTweet:
+            let navigationVC = segue.destination as! UINavigationController
+            let destination = navigationVC.topViewController as! DetailsViewController
+            let cell = sender as! TweetCell
+            destination.tweet = cell.tweet
+            destination.completionHandler = { (replyTweet) in
+                var reloadablePaths = [self.tweetsTableView.indexPathForRow(at: cell.center)!]
+                if let replyTweet = replyTweet {
+                    self.tweets.insert(replyTweet, at: 0)
+                    reloadablePaths.insert(IndexPath(row: 0, section: 0), at: 0)
+                }
+                self.tweetsTableView.reloadRows(at: reloadablePaths, with: .none)
+            }
+            destination.retweetHandler = retweetHandler
+            destination.favoriteHandler = favoriteHandler
         default:
             break
         }
@@ -69,6 +84,8 @@ class TweetsViewController: UIViewController {
         performSegue(withIdentifier: "composeTweetSegue", sender: self)
     }
     
+    
+    // MARK:- Helper functions
     fileprivate func fetchTimeline(animation: (() -> ())?) {
         //TODO: Show network error on network error
         twitterClient.homeTimeLine { (tweets, error) in
@@ -83,7 +100,7 @@ class TweetsViewController: UIViewController {
     }
     
     fileprivate func loadMoreTweets() {
-        twitterClient.homeTimeLine { (tweets, error) in
+        twitterClient.homeTimeLine(maxId: tweets[tweets.count - 1].id) { (tweets, error) in
             self.isMoreDataLoading = false
             if let tweets = tweets {
                 self.tweets.append(contentsOf: tweets)
@@ -229,7 +246,13 @@ extension TweetsViewController {
         }
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+        
+        if var topVC = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedVC = topVC.presentedViewController {
+                topVC = presentedVC
+            }
+            topVC.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func favoriteHandler(_ tweet: Tweet, _ completion: @escaping () -> ()) {

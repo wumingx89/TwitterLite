@@ -42,7 +42,7 @@ class TweetCell: UITableViewCell {
             
             dateLabel.text = nil
             if let tweetDate = tweet.timeStamp {
-                dateLabel.text = TweetCell.formatter.string(from: tweetDate)
+                dateLabel.text = DateFormatter.localizedString(from: tweetDate, dateStyle: .short, timeStyle: .short)
             }
             
             profileImage.image = nil
@@ -61,11 +61,6 @@ class TweetCell: UITableViewCell {
     
     // MARK: - Static variables
     static let indentifier = "TweetCell"
-    static let formatter = { () -> DateFormatter in
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM y"
-        return formatter
-    }()
 
     // MARK: - Lifecycle functions
     override func awakeFromNib() {

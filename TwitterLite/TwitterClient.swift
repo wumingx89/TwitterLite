@@ -90,7 +90,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func homeTimeLine(maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
         var params: [String: String]?
         if let maxId = maxId {
-            params = ["max_id": maxId]
+            params = ["max_id": maxId, "count": "21"]
         }
         
         get("1.1/statuses/home_timeline.json",
@@ -98,7 +98,10 @@ class TwitterClient: BDBOAuth1SessionManager {
             progress: nil,
             success: { (dataTask, response) in
                 if let json = JSON(response as Any).array {
-                    let tweets = Tweet.tweets(from: json)
+                    var tweets = Tweet.tweets(from: json)
+                    if params != nil {
+                        tweets.remove(at: 0) // Remove duplicate tweet while retrieving more
+                    }
                     completion(tweets, nil)
                 }
         }) { (dataTask, error) in
@@ -179,10 +182,10 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     // MARK: - Unfavorite
-    func unfavorite(_ remoteId: String?, completion: @escaping (Error?) -> ()) {
-        if let remoteId = remoteId {
+    func unfavorite(_ tweetId: String?, completion: @escaping (Error?) -> ()) {
+        if let tweetId = tweetId {
             post("1.1/favorites/destroy.json",
-                 parameters: ["id": remoteId],
+                 parameters: ["id": tweetId],
                  progress: nil,
                  success: { (dataTask, response) in
                     completion(nil)

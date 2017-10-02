@@ -15,11 +15,14 @@ class Helper {
             placeholderImage: nil,
             success: { (request, response, image) in
                 view.image = image
-                view.alpha = 0.0
-                // Fade in image
-                UIView.animate(withDuration: 0.5, animations: { 
-                    view.alpha = 1.0
-                })
+                
+                if response != nil {
+                    // Fade in image if it's from network
+                    view.alpha = 0.0
+                    UIView.animate(withDuration: 0.5, animations: {
+                        view.alpha = 1.0
+                    })
+                }
         }) { (request, response, error) in
             print(error.localizedDescription)
         }
