@@ -23,17 +23,8 @@ class HamburgerViewController: UIViewController {
     
     var contentViewController: UIViewController! {
         didSet(oldContentViewController) {
-            view.layoutIfNeeded()
-            
-            if oldContentViewController != nil {
-                oldContentViewController.willMove(toParentViewController: nil)
-                oldContentViewController.view.removeFromSuperview()
-                oldContentViewController.didMove(toParentViewController: nil)
-            }
-            
-            contentViewController.willMove(toParentViewController: self)
-            contentView.addSubview(contentViewController.view)
-            contentViewController.didMove(toParentViewController: self)
+            let oldVC = oldContentViewController == nil ? nil : oldContentViewController
+            reset(uiview: contentView, oldVC: oldVC, newVC: contentViewController)
             
             animateMenu(isOpening: false)
         }
@@ -71,5 +62,19 @@ class HamburgerViewController: UIViewController {
                 self.contentLeadConstraint.constant = isOpening ? self.view.frame.size.width * 0.8 : 0.0
                 self.view.layoutIfNeeded()
         }) { (finished) in }
+    }
+    
+    private func reset(uiview: UIView, oldVC: UIViewController?, newVC: UIViewController) {
+        view.layoutIfNeeded()
+        
+        if let oldVC = oldVC {
+            oldVC.willMove(toParentViewController: nil)
+            oldVC.view.removeFromSuperview()
+            oldVC.didMove(toParentViewController: nil)
+        }
+        
+        newVC.willMove(toParentViewController: self)
+        uiview.addSubview(newVC.view)
+        newVC.didMove(toParentViewController: self)
     }
 }
