@@ -17,6 +17,9 @@ class User: NSObject {
     var screenName: String?
     var profileUrl: URL?
     var tagline: String?
+    var tweetCount: String!
+    var followingCount: String!
+    var followersCount: String!
     
     private static var _currentUser: User?
     class var currentUser: User? {
@@ -46,6 +49,9 @@ class User: NSObject {
         id = json["id_str"].string
         screenName = json["screen_name"].string
         tagline = json["description"].string
+        tweetCount = Helper.formatCount(json["statuses_count"].int)
+        followingCount = Helper.formatCount(json["friends_count"].int)
+        followersCount = Helper.formatCount(json["followers_count"].int)
         
         if let profilePicUrl = json["profile_image_url_https"].string {
             profileUrl = URL(string: profilePicUrl)

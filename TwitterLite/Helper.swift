@@ -27,4 +27,23 @@ class Helper {
             print(error.localizedDescription)
         }
     }
+    
+    class func formatCount(_ count: Int?) -> String {
+        guard let count = count else {
+            return "0"
+        }
+        
+        let number = Double(count)
+        let millions = number / 1000000.0
+        if millions > 1.0 {
+            return "\(round(millions * 10) / 10)M"
+        }
+        
+        let thousands = number / 1000.0
+        if thousands > 1.0 {
+            return "\(round(thousands * 10) / 10)K"
+        }
+        
+        return "\(count)"
+    }
 }
