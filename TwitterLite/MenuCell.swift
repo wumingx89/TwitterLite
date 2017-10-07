@@ -16,7 +16,8 @@ class MenuCell: UITableViewCell, Configurable {
     var viewController: UIViewController?
     var model: MenuItem! {
         didSet {
-            settingImage.image = model.image
+            settingImage.image = model.image.withRenderingMode(.alwaysTemplate)
+            settingImage.tintColor = Constants.TwitterColor.darkGray
             settingNameLabel.text = model.title
             viewController = model.viewController
             

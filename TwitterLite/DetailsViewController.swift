@@ -45,12 +45,6 @@ class DetailsViewController: UIViewController {
         }
     }
     
-    func onBack() {
-        dismiss(animated: true) {
-            self.completionHandler?(self.replyTweet)
-        }
-    }
-    
     private func setupTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
@@ -59,12 +53,8 @@ class DetailsViewController: UIViewController {
     }
     
     private func setupNavBar() {
-        let backImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-        backImageView.image = #imageLiteral(resourceName: "back")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backImageView)
-        backImageView.addGestureRecognizer(
-            UITapGestureRecognizer(target: self, action: #selector(onBack))
-        )
+        navigationItem.backBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = Constants.TwitterColor.black
     }
 }
 

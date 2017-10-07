@@ -1,6 +1,6 @@
 # Project 4 - *TwitterLite*
 
-Time spent: **1** hours spent in total
+Time spent: **6** hours spent in total
 
 ## User Stories
 
@@ -32,7 +32,8 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [x] Opening the hamburger menu disables the content view. You can tap or drag to close menu
-- [x] Dragging/Opening the content view to reveal the hamburger menu has animation to gray out the content view.
+- [x] Dragging/Opening/Closing the content view to reveal the hamburger menu has animation to gray out the content view.
+- [x] Dragging/Opening/Closing the content view will animate certain things. For example on the timelines the profile image icon will slowly disappear as the menu opens
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

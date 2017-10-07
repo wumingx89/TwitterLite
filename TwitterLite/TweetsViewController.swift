@@ -20,10 +20,12 @@ class TweetsViewController: UIViewController {
     
     var timelineType = TimelineType.home
     
+    fileprivate var profileImageView: UIImageView!
     fileprivate var loadingMoreView: InfiniteScrollActivityView!
     fileprivate var isMoreDataLoading = false
     fileprivate let twitterClient = TwitterClient.shared
     fileprivate var tweets: [Tweet]!
+    fileprivate var lastTranslation: CGFloat!
     
     // MARK: - Lifecycle functions
     override func viewDidLoad() {
@@ -84,8 +86,8 @@ class TweetsViewController: UIViewController {
         }
     }
     
-    func onLogout() {
-        TwitterClient.shared.logout()
+    func onProfile() {
+        NotificationCenter.default.post(name: Constants.EventId.openMenu, object: nil)
     }
     
     func onCompose() {
@@ -121,13 +123,37 @@ class TweetsViewController: UIViewController {
         }
     }
     
+    fileprivate func setupTableView() {
+        tweetsTableView.register(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        tweetsTableView.estimatedRowHeight = 200
+        tweetsTableView.delegate = self
+        tweetsTableView.dataSource = self
+        
+        tweetsTableView.tableFooterView = UIView()
+    }
+    
     fileprivate func setupNavBar() {
-        let logoutImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-        logoutImageView.image = #imageLiteral(resourceName: "logout")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoutImageView)
-        logoutImageView.addGestureRecognizer(
-            UITapGestureRecognizer(target: self, action: #selector(onLogout))
+        // Set up left bar button item
+        profileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2.0
+        profileImageView.clipsToBounds = true
+        Helper.loadImage(withUrl: User.currentUser!.profileUrl!, forView: profileImageView)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+        profileImageView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onProfile))
         )
+        
+        // Set title
+        var title: String!
+        switch timelineType {
+        case .home:
+            title = "Home"
+        case .mentions:
+            title = "Mentions"
+        }
+        navigationItem.title = title
         
         // Set up compose bar item
         let composeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
@@ -173,11 +199,14 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    fileprivate func setupTableView() {
-        tweetsTableView.rowHeight = UITableViewAutomaticDimension
-        tweetsTableView.estimatedRowHeight = 200
-        tweetsTableView.delegate = self
-        tweetsTableView.dataSource = self
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? TweetCell else {
+            return
+        }
+        
+        let detailsVC = Constants.mainStoryboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        detailsVC.tweet = cell.tweet
+        show(detailsVC, sender: self)
     }
 }
 
@@ -278,6 +307,32 @@ extension TweetsViewController {
                     completion()
                 }
             }
+        }
+    }
+}
+
+// MARK:- HamburgerMenuViewController Delegate
+extension TweetsViewController: HamburgerViewControllerDelegate {
+    func hamburgerViewController(_ hamburgerVC: HamburgerViewController, didPan sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        switch sender.state {
+        case .began:
+            lastTranslation = translation.x
+        case .changed:
+            let delta = translation.x - lastTranslation
+            profileImageView.alpha -= delta / (0.7 * view.bounds.size.width)
+            profileImageView.alpha = min(1.0, max(0.0, profileImageView.alpha))
+            lastTranslation = translation.x
+        case .ended:
+            animateImage(isOpening: sender.velocity(in: view).x > 0)
+        default:
+            break
+        }
+    }
+    
+    func animateImage(isOpening: Bool) {
+        UIView.animate(withDuration: 0.5) { 
+            self.profileImageView.alpha = isOpening ? 0.0 : 1.0
         }
     }
 }

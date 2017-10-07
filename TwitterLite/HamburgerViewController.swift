@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol HamburgerViewControllerDelegate: class {
+    func hamburgerViewController(_ hamburgerVC: HamburgerViewController, didPan sender: UIPanGestureRecognizer)
+}
+
 class HamburgerViewController: UIViewController {
     
     @IBOutlet weak var grayView: UIView!
@@ -30,8 +34,16 @@ class HamburgerViewController: UIViewController {
         didSet(oldContentViewController) {
             animateMenu(isOpening: false)
             reset(uiview: contentView, oldVC: oldContentViewController, newVC: contentViewController)
+            
+            if let navigationVC = contentViewController as? UINavigationController {
+                if let topVC = navigationVC.topViewController as? HamburgerViewControllerDelegate {
+                    delegate = topVC
+                }
+            }
         }
     }
+    
+    weak var delegate: HamburgerViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +55,12 @@ class HamburgerViewController: UIViewController {
             UIPanGestureRecognizer(target: self, action: #selector(onPanGesture))
         )
         grayView.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(openMenu), name: Constants.EventId.openMenu, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Constants.EventId.openMenu, object: nil)
     }
     
     @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
@@ -67,10 +85,16 @@ class HamburgerViewController: UIViewController {
         default:
             break
         }
+        
+        delegate?.hamburgerViewController(self, didPan: sender)
     }
     
     func onGrayViewTap(_ sender: UITapGestureRecognizer) {
         animateMenu(isOpening: false)
+    }
+    
+    func openMenu() {
+        animateMenu(isOpening: true)
     }
     
     private func animateMenu(isOpening: Bool) {

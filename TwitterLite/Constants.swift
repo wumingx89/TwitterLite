@@ -11,6 +11,7 @@ import UIKit
 struct Constants {
     
     static let tweetWarningLimit = 20
+    static let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     struct OAuth {
         static let consumerKey = "KYOA9SGcQM4SWdIUny2E7Gc3P"
@@ -36,6 +37,7 @@ struct Constants {
     
     struct EventId {
         static let newTweet = "TwitterLite_NewTweet"
+        static let openMenu = Notification.Name("OpenHamburgerMenu")
     }
     
     struct CellTypes {
