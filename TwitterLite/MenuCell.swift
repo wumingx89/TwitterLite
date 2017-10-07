@@ -13,12 +13,19 @@ class MenuCell: UITableViewCell, Configurable {
     @IBOutlet weak var settingImage: UIImageView!
     @IBOutlet weak var settingNameLabel: UILabel!
     
-    var viewController: UIViewController!
+    var viewController: UIViewController?
     var model: MenuItem! {
         didSet {
             settingImage.image = model.image
             settingNameLabel.text = model.title
             viewController = model.viewController
+            
+            if let timelineType = model.timelineType {
+                if let navigationVC = viewController as? UINavigationController {
+                    let tweetsVC = navigationVC.topViewController as! TweetsViewController
+                    tweetsVC.timelineType = timelineType
+                }
+            }
         }
     }
     

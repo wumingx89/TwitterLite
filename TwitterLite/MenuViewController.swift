@@ -21,9 +21,10 @@ class MenuViewController: UIViewController {
     fileprivate var menuItems: [TableViewCompatible] = { () -> [TableViewCompatible] in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let menuItems = [
-            MenuItem(image: #imageLiteral(resourceName: "home"), title: "Home", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")),
-            MenuItem(image: #imageLiteral(resourceName: "mention"), title: "Mentions", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")),
-            MenuItem(image: #imageLiteral(resourceName: "profile"), title: "Profile", viewController: storyboard.instantiateViewController(withIdentifier: "ProfileViewController"))
+            MenuItem(image: #imageLiteral(resourceName: "home"), title: "Home", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController"), timelineType: .home),
+            MenuItem(image: #imageLiteral(resourceName: "mention"), title: "Mentions", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController"), timelineType: .mentions),
+            MenuItem(image: #imageLiteral(resourceName: "profile"), title: "Profile", viewController: storyboard.instantiateViewController(withIdentifier: "ProfileViewController")),
+            MenuItem(image: #imageLiteral(resourceName: "logout"), title: "Logout")
         ]
         return menuItems
     }()
@@ -73,5 +74,15 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return menuItems[indexPath.row].cellForTableView(tableView, for: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! MenuCell
+        switch cell.settingNameLabel.text! {
+        case "Logout":
+            TwitterClient.shared.logout()
+        default:
+            hamburgerVC.contentViewController = cell.viewController
+        }
     }
 }

@@ -9,10 +9,16 @@
 import UIKit
 import MBProgressHUD
 
+enum TimelineType {
+    case home, mentions
+}
+
 // MARK:- Main view controller
 class TweetsViewController: UIViewController {
 
     @IBOutlet weak var tweetsTableView: UITableView!
+    
+    var timelineType = TimelineType.home
     
     fileprivate var loadingMoreView: InfiniteScrollActivityView!
     fileprivate var isMoreDataLoading = false
@@ -32,6 +38,8 @@ class TweetsViewController: UIViewController {
         fetchTimeline {
             MBProgressHUD.hide(for: self.view, animated: true)
         }
+        
+        print("View did load for tweets timeline of type \(timelineType == .home ? "home" : "mentions")")
     }
     
     // MARK: - Navigation
@@ -88,7 +96,7 @@ class TweetsViewController: UIViewController {
     // MARK:- Helper functions
     fileprivate func fetchTimeline(animation: (() -> ())?) {
         //TODO: Show network error on network error
-        twitterClient.homeTimeLine { (tweets, error) in
+        twitterClient.timeline(type: timelineType) { (tweets, error) in
             self.tweets = tweets ?? []
             animation?()
             self.tweetsTableView.reloadData()
@@ -100,7 +108,7 @@ class TweetsViewController: UIViewController {
     }
     
     fileprivate func loadMoreTweets() {
-        twitterClient.homeTimeLine(maxId: tweets[tweets.count - 1].id) { (tweets, error) in
+        twitterClient.timeline(type: timelineType, maxId: tweets[tweets.count - 1].id) { (tweets, error) in
             self.isMoreDataLoading = false
             if let tweets = tweets {
                 self.tweets.append(contentsOf: tweets)

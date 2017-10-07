@@ -8,16 +8,22 @@
 
 import UIKit
 
+enum MenuItemType {
+    case viewController
+}
+
 class MenuItem: TableViewCompatible {
     var reuseIdentifier = "MenuCell"
     var title: String!
     var image: UIImage!
-    var viewController: UIViewController!
+    var viewController: UIViewController?
+    var timelineType: TimelineType?
     
-    init(image: UIImage, title: String, viewController: UIViewController) {
+    init(image: UIImage, title: String, viewController: UIViewController? = nil, timelineType: TimelineType? = nil) {
         self.title = title
         self.image = image
         self.viewController = viewController
+        self.timelineType = timelineType
     }
     
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {

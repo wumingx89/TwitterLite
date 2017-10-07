@@ -85,14 +85,44 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    // MARK: - Home timeline
-    func homeTimeLine(maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
+    // MARK: - Get timeline
+//    func homeTimeLine(maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
+//        var params: [String: String]?
+//        if let maxId = maxId {
+//            params = ["max_id": maxId, "count": "21"]
+//        }
+//        
+//        get("1.1/statuses/home_timeline.json",
+//            parameters: params,
+//            progress: nil,
+//            success: { (dataTask, response) in
+//                if let json = JSON(response as Any).array {
+//                    var tweets = Tweet.tweets(from: json)
+//                    if params != nil {
+//                        tweets.remove(at: 0) // Remove duplicate tweet while retrieving more
+//                    }
+//                    completion(tweets, nil)
+//                }
+//        }) { (dataTask, error) in
+//            completion(nil, error)
+//        }
+//    }
+    
+    func timeline(type: TimelineType, maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
+        let endpoint: String
+        switch type {
+        case .home:
+            endpoint = "1.1/statuses/home_timeline.json"
+        case .mentions:
+            endpoint = "1.1/statuses/mentions_timeline.json"
+        }
+        
         var params: [String: String]?
         if let maxId = maxId {
             params = ["max_id": maxId, "count": "21"]
         }
         
-        get("1.1/statuses/home_timeline.json",
+        get(endpoint,
             parameters: params,
             progress: nil,
             success: { (dataTask, response) in

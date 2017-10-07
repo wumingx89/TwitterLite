@@ -28,10 +28,8 @@ class HamburgerViewController: UIViewController {
     
     var contentViewController: UIViewController! {
         didSet(oldContentViewController) {
-            let oldVC = oldContentViewController == nil ? nil : oldContentViewController
-            reset(uiview: contentView, oldVC: oldVC, newVC: contentViewController)
-            
             animateMenu(isOpening: false)
+            reset(uiview: contentView, oldVC: oldContentViewController, newVC: contentViewController)
         }
     }
 
