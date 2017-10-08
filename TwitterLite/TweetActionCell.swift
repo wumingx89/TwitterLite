@@ -42,6 +42,8 @@ class TweetActionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        selectionStyle = .none
+        
         // Set images properly
         replyImageView.image = replyImageView.image!.withRenderingMode(.alwaysTemplate)
         replyImageView.tintColor = Constants.TwitterColor.darkGray
