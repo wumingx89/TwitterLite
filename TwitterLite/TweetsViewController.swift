@@ -67,8 +67,7 @@ class TweetsViewController: UIViewController {
                 }
             }
         case Constants.SegueIds.openTweet:
-            let navigationVC = segue.destination as! UINavigationController
-            let destination = navigationVC.topViewController as! DetailsViewController
+            let destination = segue.destination as! DetailsViewController
             let cell = sender as! TweetCell
             destination.tweet = cell.tweet
             destination.completionHandler = { (replyTweet) in
@@ -204,9 +203,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        let detailsVC = Constants.mainStoryboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
-        detailsVC.tweet = cell.tweet
-        show(detailsVC, sender: self)
+        performSegue(withIdentifier: Constants.SegueIds.openTweet, sender: cell)
     }
 }
 

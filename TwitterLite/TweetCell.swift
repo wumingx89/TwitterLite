@@ -9,6 +9,10 @@
 import UIKit
 import SwiftDate
 
+enum TweetCellStyle {
+    case normal, small
+}
+
 class TweetCell: UITableViewCell {
     
     // MARK: Outlets
@@ -25,6 +29,23 @@ class TweetCell: UITableViewCell {
     @IBOutlet var rtConstraints: [NSLayoutConstraint]!
     
     // MARK: - Properties
+    var style = TweetCellStyle.normal {
+        didSet(oldStyle) {
+            if style != oldStyle {
+                switch style {
+                case .normal:
+                    nameLabel.font = UIFont(name: nameLabel.font.fontName, size: nameLabel.font.pointSize + 5.0)
+                    tweetLabel.font = UIFont(name: tweetLabel.font.fontName, size: tweetLabel.font.pointSize + 5.0)
+                    break
+                case .small:
+                    nameLabel.font = UIFont(name: nameLabel.font.fontName, size: nameLabel.font.pointSize - 5.0)
+                    tweetLabel.font = UIFont(name: tweetLabel.font.fontName, size: tweetLabel.font.pointSize - 5.0)
+                    break
+                }
+            }
+        }
+    }
+    
     var tweet: Tweet! {
         didSet {
             var originalUser: User?
@@ -74,8 +95,6 @@ class TweetCell: UITableViewCell {
         selectionStyle = .none
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
-        profileImage.layer.borderColor = Constants.TwitterColor.darkGray.cgColor
-        profileImage.layer.borderWidth = 0.5
         
         // Font color
         dateLabel.textColor = Constants.TwitterColor.lightGray
@@ -97,6 +116,12 @@ class TweetCell: UITableViewCell {
             UITapGestureRecognizer(target: self, action: #selector(onFavorite))
         )
         
+        // Add tap gesture recognizer to profile image
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onProfile))
+        )
+        
         // Set images properly
         replyImageView.image = replyImageView.image!.withRenderingMode(.alwaysTemplate)
         replyImageView.tintColor = Constants.TwitterColor.darkGray
@@ -104,7 +129,11 @@ class TweetCell: UITableViewCell {
         retweetImageView.image = retweetImageView.image!.withRenderingMode(.alwaysTemplate)
     }
     
-    // MARK: - Tweet action functions
+    // MARK: - Tweet cell action functions
+    func onProfile() {
+        
+    }
+    
     func onReply() {
         replyHandler?(tweet)
     }

@@ -13,10 +13,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     
     var headerImageView: UIImageView!
+    var user: User!
     
+    
+    // MARK:- View lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +39,8 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         profileImageView.layer.cornerRadius = profileImageView.bounds.size.width / 2.0
         profileImageView.clipsToBounds = true
+        profileView.layer.borderColor = UIColor.white.cgColor
+        profileView.layer.borderWidth = 3.0
         
         headerImageView = UIImageView(frame: headerView.bounds)
         headerImageView.image = #imageLiteral(resourceName: "default_bg")
@@ -45,9 +51,16 @@ class ProfileViewController: UIViewController {
         headerView.clipsToBounds = true
     }
 
-//    override func viewDidLayoutSubviews() {
-//        <#code#>
-//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let profileSize = profileView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        if profileSize.height != profileView.frame.size.height {
+            profileView.frame.size.height = profileSize.height
+            tableView.tableHeaderView = profileView
+            tableView.layoutIfNeeded()
+        }
+    }
     
 
     /*
@@ -69,6 +82,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        cell.style = .small
         return cell
     }
     

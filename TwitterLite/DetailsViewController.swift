@@ -29,6 +29,14 @@ class DetailsViewController: UIViewController {
         setupTableView()
         setupNavBar()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParentViewController {
+            completionHandler?(replyTweet)
+        }
+    }
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
