@@ -19,16 +19,22 @@ class TweetDetailCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet var rtConstraints: [NSLayoutConstraint]!
     
+    var profileHandler: ((User) -> ())?
+    var originalUser: User!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.size.width / 2.0
+        
+        profileImage.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onProfile))
+        )
     }
     
     func updateCell(withTweet tweet: Tweet) {
-        var originalUser: User?
         if tweet.isRetweet() {
             topRTView.isHidden = false
             originalUser = tweet.originalTweeter
@@ -45,8 +51,8 @@ class TweetDetailCell: UITableViewCell {
         }
         
         tweetLabel.text = tweet.text
-        nameLabel.text = originalUser?.name
-        handleLabel.text = "@\(originalUser?.screenName ?? "")"
+        nameLabel.text = originalUser.name
+        handleLabel.text = "@\(originalUser.screenName ?? "")"
         
         timeLabel.text = nil
         if let tweetDate = tweet.timeStamp {
@@ -57,5 +63,9 @@ class TweetDetailCell: UITableViewCell {
         if let profileUrl = originalUser?.profileUrl {
             Helper.loadImage(withUrl: profileUrl, forView: profileImage)
         }
+    }
+    
+    func onProfile() {
+        profileHandler?(originalUser)
     }
 }

@@ -86,6 +86,7 @@ class TweetCell: UITableViewCell {
     var replyHandler: ((Tweet) -> ())?
     var retweetHandler: ((Tweet, @escaping () -> ()) -> ())?
     var favoriteHandler: ((Tweet, @escaping () -> ()) -> ())?
+    var profileHandler: ((User) -> ())?
 
     // MARK: - Lifecycle functions
     override func awakeFromNib() {
@@ -131,7 +132,11 @@ class TweetCell: UITableViewCell {
     
     // MARK: - Tweet cell action functions
     func onProfile() {
-        
+        if let originalUser = tweet.originalTweeter {
+            profileHandler?(originalUser)
+        } else if let user = tweet.user {
+            profileHandler?(user)
+        }
     }
     
     func onReply() {

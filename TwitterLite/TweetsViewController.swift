@@ -194,6 +194,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.replyHandler = replyHandler
         cell.retweetHandler = retweetHandler
         cell.favoriteHandler = favoriteHandler
+        cell.profileHandler = profileHandler
         
         return cell
     }
@@ -304,6 +305,15 @@ extension TweetsViewController {
                     completion()
                 }
             }
+        }
+    }
+    
+    func profileHandler(_ user: User) {
+        if let storyboard = storyboard {
+            let destination = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+            destination.user = user
+            
+            navigationController?.show(destination, sender: nil)
         }
     }
 }

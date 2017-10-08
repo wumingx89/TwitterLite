@@ -15,6 +15,18 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var taglineView: UIView!
+    @IBOutlet weak var taglineLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var locationView: UIView!
+    @IBOutlet weak var linkView: UIView!
+    @IBOutlet weak var linkLabel: UILabel!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    @IBOutlet weak var tweetCountLabel: UILabel!
+    @IBOutlet weak var followingCountLabel: UILabel!
+    @IBOutlet weak var followersCountLabel: UILabel!
     
     var headerImageView: UIImageView!
     var user: User!
@@ -31,24 +43,65 @@ class ProfileViewController: UIViewController {
         tableView.register(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
+        
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        nameLabel.text = user.name
+        usernameLabel.text = "@\(user.screenName ?? "")"
+        
+        if let tagline = user.tagline {
+            taglineView.isHidden = false
+            taglineLabel.text = tagline
+        } else {
+            taglineView.isHidden = true
+        }
+        
+        if let location = user.location {
+            locationView.isHidden = false
+            locationLabel.text = location
+        } else {
+            locationView.isHidden = true
+        }
+        
+        if let expandedUrl = user.expandedUrl {
+            linkView.isHidden = false
+            linkLabel.text = expandedUrl
+        } else {
+            linkView.isHidden = true
+        }
+        
+        bottomStackView.isHidden = locationView.isHidden && linkView.isHidden
+        
+        tweetCountLabel.text = user.tweetCount
+        followingCountLabel.text = user.followingCount
+        followersCountLabel.text = user.followersCount
+        
+        view.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationController?.navigationBar.isHidden = true
         profileImageView.layer.cornerRadius = profileImageView.bounds.size.width / 2.0
         profileImageView.clipsToBounds = true
-        profileView.layer.borderColor = UIColor.white.cgColor
-        profileView.layer.borderWidth = 3.0
+        profileImageView.layer.borderColor = UIColor.white.cgColor
+        profileImageView.layer.borderWidth = 2.0
+        Helper.loadImage(withUrl: user.profileUrl!, forView: profileImageView)
         
         headerImageView = UIImageView(frame: headerView.bounds)
-        headerImageView.image = #imageLiteral(resourceName: "default_bg")
         headerImageView.contentMode = .scaleAspectFill
         headerImageView.isHidden = false
         headerView.insertSubview(headerImageView, belowSubview: headerLabel)
-        
         headerView.clipsToBounds = true
+        if let bannerUrl = user.bannerUrl {
+            Helper.loadImage(withUrl: bannerUrl, forView: headerImageView)
+        } else {
+            headerImageView.image = #imageLiteral(resourceName: "default_bg")
+        }
     }
 
     override func viewDidLayoutSubviews() {

@@ -17,6 +17,7 @@ class DetailsViewController: UIViewController {
     var completionHandler: ((Tweet?) -> ())?
     var retweetHandler: ((Tweet, @escaping () -> ()) -> ())?
     var favoriteHandler: ((Tweet, @escaping () -> ()) -> ())?
+    var profileHandler: ((User) -> ())?
     let tableStructure = [
         Constants.CellTypes.tweetDetailCell,
         Constants.CellTypes.tweetCountCell,
@@ -78,6 +79,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let detailCell = cell as! TweetDetailCell
             detailCell.updateCell(withTweet: tweet)
+            detailCell.profileHandler = profileHandler
         case 1:
             let countCell = cell as! TweetCountCell
             countCell.setCell(withTweet: tweet)

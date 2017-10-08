@@ -16,10 +16,14 @@ class User: NSObject {
     var id: String?
     var screenName: String?
     var profileUrl: URL?
+    var bannerUrl: URL?
     var tagline: String?
     var tweetCount: String!
     var followingCount: String!
     var followersCount: String!
+    var isFollowing: Bool!
+    var location: String?
+    var expandedUrl: String?
     
     private static var _currentUser: User?
     class var currentUser: User? {
@@ -52,9 +56,16 @@ class User: NSObject {
         tweetCount = Helper.formatCount(json["statuses_count"].int)
         followingCount = Helper.formatCount(json["friends_count"].int)
         followersCount = Helper.formatCount(json["followers_count"].int)
+        isFollowing = json["following"].bool ?? false
+        location = json["location"].string
+        expandedUrl = json["entities"]["url"]["urls"]["expanded_url"].string
         
         if let profilePicUrl = json["profile_image_url_https"].string {
             profileUrl = URL(string: profilePicUrl)
+        }
+        
+        if let bannerUrlString = json["profile_banner_url"].string {
+            bannerUrl = URL(string: bannerUrlString)
         }
     }
     
