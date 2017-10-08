@@ -59,11 +59,11 @@ class TwitterClient: BDBOAuth1SessionManager {
             success: { (accessToken) in
                 self.currentAccount(success: { (user) in
                     User.currentUser = user
+                    self.loginSuccess?()
                 }, failure: { (error) in
                     print(error.localizedDescription)
                     self.loginFailure?(error)
                 })
-                self.loginSuccess?()
         }, failure: { (error) in
             self.loginFailure?(error)
         })
