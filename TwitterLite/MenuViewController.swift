@@ -23,7 +23,7 @@ class MenuViewController: UIViewController {
         let menuItems = [
             MenuItem(image: #imageLiteral(resourceName: "home"), title: "Home", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController"), timelineType: .home),
             MenuItem(image: #imageLiteral(resourceName: "mention"), title: "Mentions", viewController: storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController"), timelineType: .mentions),
-            MenuItem(image: #imageLiteral(resourceName: "profile"), title: "Profile", viewController: storyboard.instantiateViewController(withIdentifier: "ProfileViewController")),
+            MenuItem(image: #imageLiteral(resourceName: "profile"), title: "Profile", viewController: storyboard.instantiateViewController(withIdentifier: "ProfileNavigationViewController")),
             MenuItem(image: #imageLiteral(resourceName: "logout"), title: "Logout")
         ]
         return menuItems

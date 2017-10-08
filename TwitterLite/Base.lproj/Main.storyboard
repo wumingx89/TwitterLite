@@ -223,12 +223,68 @@
                     <view key="view" contentMode="scaleToFill" id="s6L-dd-iXD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXe-95-w8Z">
+                                <rect key="frame" x="0.0" y="44" width="375" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seattle Seahawks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCa-Kh-mHb">
+                                        <rect key="frame" x="133" y="120" width="110.5" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="FCa-Kh-mHb" firstAttribute="centerX" secondItem="QXe-95-w8Z" secondAttribute="centerX" id="3SF-RH-wUl"/>
+                                    <constraint firstAttribute="height" constant="120" id="aWn-dV-mJx"/>
+                                    <constraint firstItem="FCa-Kh-mHb" firstAttribute="top" secondItem="QXe-95-w8Z" secondAttribute="top" constant="120" id="gxO-zo-ApK"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DYa-j6-MJX">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="2b7-84-TlL">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_logo" translatesAutoresizingMaskIntoConstraints="NO" id="4vf-EN-CIA">
+                                            <rect key="frame" x="16" y="-30" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="JFD-dU-1nS"/>
+                                                <constraint firstAttribute="width" constant="60" id="jc2-Gv-jfn"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="4vf-EN-CIA" firstAttribute="leading" secondItem="2b7-84-TlL" secondAttribute="leading" constant="16" id="YvU-HO-hsl"/>
+                                        <constraint firstItem="4vf-EN-CIA" firstAttribute="top" secondItem="2b7-84-TlL" secondAttribute="top" constant="-30" id="pfy-rf-odo"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DYa-j6-MJX" firstAttribute="leading" secondItem="s6L-dd-iXD" secondAttribute="leading" id="8i3-aG-4s7"/>
+                            <constraint firstItem="QXe-95-w8Z" firstAttribute="leading" secondItem="s6L-dd-iXD" secondAttribute="leading" id="JHR-cu-BrQ"/>
+                            <constraint firstItem="DYa-j6-MJX" firstAttribute="top" secondItem="DLf-lk-qLZ" secondAttribute="bottom" constant="-20" id="O07-c1-E7j"/>
+                            <constraint firstAttribute="trailing" secondItem="QXe-95-w8Z" secondAttribute="trailing" id="Pz1-fE-m1k"/>
+                            <constraint firstItem="Sd6-Ry-vnc" firstAttribute="top" secondItem="DYa-j6-MJX" secondAttribute="bottom" id="ijF-pB-hML"/>
+                            <constraint firstAttribute="trailing" secondItem="DYa-j6-MJX" secondAttribute="trailing" id="sMD-st-0Gs"/>
+                            <constraint firstItem="QXe-95-w8Z" firstAttribute="top" secondItem="DLf-lk-qLZ" secondAttribute="bottom" constant="-20" id="yIX-Mw-B2Q"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="wyb-uW-XOg"/>
+                    <connections>
+                        <outlet property="headerLabel" destination="FCa-Kh-mHb" id="uTa-Ga-bh3"/>
+                        <outlet property="headerView" destination="QXe-95-w8Z" id="XYW-o7-vbU"/>
+                        <outlet property="profileImageView" destination="4vf-EN-CIA" id="miU-Vy-qHm"/>
+                        <outlet property="tableView" destination="DYa-j6-MJX" id="mEu-Eg-ZnX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otv-vO-TnQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="-1434"/>
+            <point key="canvasLocation" x="1293.5999999999999" y="-1434.3328335832084"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -699,6 +755,24 @@
             </objects>
             <point key="canvasLocation" x="1294" y="-690"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UG4-fW-Bcb">
+            <objects>
+                <navigationController storyboardIdentifier="ProfileNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="H5v-ri-igb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uB3-5e-5dQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xdc-G1-Z3o" kind="relationship" relationship="rootViewController" id="2bM-SQ-LK1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="deX-7t-Nwv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="461.60000000000002" y="-1434.3328335832084"/>
+        </scene>
     </scenes>
     <resources>
         <image name="cancel" width="24" height="24"/>
@@ -706,6 +780,7 @@
         <image name="reply" width="16" height="16"/>
         <image name="retweet" width="16" height="16"/>
         <image name="twitter_blue_large" width="200" height="200"/>
+        <image name="twitter_logo" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Wjt-Co-NYd"/>
