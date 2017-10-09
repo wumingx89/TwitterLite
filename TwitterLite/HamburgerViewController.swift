@@ -11,6 +11,7 @@ import UIKit
 
 protocol HamburgerViewControllerDelegate: class {
     func hamburgerViewController(_ hamburgerVC: HamburgerViewController, didPan sender: UIPanGestureRecognizer)
+    func hamburgerViewController(_ hamburgerVC: HamburgerViewController, didAnimateMenu isOpening: Bool)
 }
 
 class HamburgerViewController: UIViewController {
@@ -101,13 +102,14 @@ class HamburgerViewController: UIViewController {
         UIView.animate(
             withDuration: 0.5,
             delay: 0.0,
-            usingSpringWithDamping: isOpening ? 1.0 : 0.4,
+            usingSpringWithDamping: 1.0,
             initialSpringVelocity: 0.0,
             animations: {
                 self.grayView.isHidden = !isOpening
                 self.grayView.alpha = isOpening ? 0.4 : 0.0
                 self.contentLeadConstraint.constant = isOpening ? self.view.frame.size.width * 0.7 : 0.0
                 self.grayLeadingConstraint.constant = isOpening ? self.view.frame.size.width * 0.7 : 0.0
+                self.delegate?.hamburgerViewController(self, didAnimateMenu: isOpening)
                 self.view.layoutIfNeeded()
         }) { (finished) in }
     }

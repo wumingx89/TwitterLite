@@ -328,16 +328,12 @@ extension TweetsViewController: HamburgerViewControllerDelegate {
             profileImageView.alpha -= delta / (0.7 * view.bounds.size.width)
             profileImageView.alpha = min(1.0, max(0.0, profileImageView.alpha))
             lastTranslation = translation.x
-        case .ended:
-            animateImage(isOpening: sender.velocity(in: view).x > 0)
         default:
             break
         }
     }
     
-    func animateImage(isOpening: Bool) {
-        UIView.animate(withDuration: 0.5) { 
-            self.profileImageView.alpha = isOpening ? 0.0 : 1.0
-        }
+    func hamburgerViewController(_ hamburgerVC: HamburgerViewController, didAnimateMenu isOpening: Bool) {
+        profileImageView.alpha = isOpening ? 0.0 : 1.0
     }
 }
