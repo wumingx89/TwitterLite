@@ -1,6 +1,6 @@
 # Project 4 - *TwitterLite*
 
-Time spent: **18** hours spent in total
+Time spent: **18.5** hours spent in total
 
 ## User Stories
 
@@ -36,6 +36,7 @@ The following **additional** features are implemented:
 - [x] When the hamburger menu is open, the content view is disabled. It can be closed by tapping anywhere in the content view
 - [x] Dragging/Opening/Closing the content view will animate certain things. For example on the timelines the profile image icon will slowly disappear as the menu opens
 - [x] Scrolling on the profile page will animate the user profile image and appear to slide under the banner image. Scrolling down will reverse the effect
+- [x] Added a custom back button to the profile page
 - [x] When the name goes under the banner, a new one will show up in the banner. Same effect as in the real app.
 
 
@@ -48,21 +49,22 @@ Features carried over from last project:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-  1.
-  2.
+  1. Some of the animations in modern iOS apps are really slick, but they seem really difficult to implement without some type of tool to help. Is there such a tool? Or are there any great resources to learn more about animations?
+  2. I think it would be worth while to spend some time to discuss how we can architect this app so that it has more reusable components? Like there's a small profile card in the hamburger menu, and a larger version exists on the profile page. Is there anyway to share code between those to UI views?
+  3. With the addition of the profile page, there are many places a user can interact with Tweets. How can we effectively manage messaging between multiple layers of view controllers?  Like if I went home timeline -> New York Times profile -> like or retweet something from their profile page -> go back to home timeline and have it show up as liked
 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/9dLAeXY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Animations are really fun to make and can make the app look really well polished, but they are also hard to get right sometimes.
 
 ## License
 
