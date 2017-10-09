@@ -9,10 +9,6 @@
 import UIKit
 import MBProgressHUD
 
-enum TimelineType {
-    case home, mentions
-}
-
 // MARK:- Main view controller
 class TweetsViewController: UIViewController {
 
@@ -151,6 +147,8 @@ class TweetsViewController: UIViewController {
             title = "Home"
         case .mentions:
             title = "Mentions"
+        default:
+            break
         }
         navigationItem.title = title
         

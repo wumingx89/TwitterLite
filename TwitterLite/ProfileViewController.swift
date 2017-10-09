@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var taglineView: UIView!
     @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var locationView: UIView!
@@ -27,9 +26,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var tweetCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
+    @IBOutlet var locationConstraints: [NSLayoutConstraint]!
+    @IBOutlet var linkConstraints: [NSLayoutConstraint]!
     
     var headerImageView: UIImageView!
+    var blurEffectView: UIVisualEffectView!
     var user: User!
+    var timelineType = TimelineType.user
+    var tweets = [Tweet]()
     
     
     // MARK:- View lifecycle functions
@@ -43,35 +47,59 @@ class ProfileViewController: UIViewController {
         tableView.register(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
+        tableView.tableFooterView = UIView()
         
         navigationController?.navigationBar.isHidden = true
+        
+        blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        blurEffectView.frame = headerView.bounds
+        blurEffectView.alpha = 0.0
+        headerView.insertSubview(blurEffectView, belowSubview: headerLabel)
+        
+        if user == nil {
+            user = User.currentUser!
+        }
+        TwitterClient.shared.timeline(type: timelineType, userId: user.id) { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets = tweets
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         nameLabel.text = user.name
+        headerLabel.text = user.name
         usernameLabel.text = "@\(user.screenName ?? "")"
         
         if let tagline = user.tagline {
-            taglineView.isHidden = false
+            taglineLabel.isHidden = false
             taglineLabel.text = tagline
         } else {
-            taglineView.isHidden = true
+            taglineLabel.isHidden = true
         }
         
-        if let location = user.location {
+        if let location = user.location, !location.isEmpty {
             locationView.isHidden = false
             locationLabel.text = location
         } else {
             locationView.isHidden = true
         }
+        locationConstraints.forEach { (constraint) in
+            constraint.isActive = !self.locationView.isHidden
+        }
         
-        if let expandedUrl = user.expandedUrl {
+        
+        if let expandedUrl = user.expandedUrl, !expandedUrl.isEmpty {
             linkView.isHidden = false
             linkLabel.text = expandedUrl
         } else {
             linkView.isHidden = true
+        }
+        linkConstraints.forEach { (constraint) in
+            constraint.isActive = !self.linkView.isHidden
         }
         
         bottomStackView.isHidden = locationView.isHidden && linkView.isHidden
@@ -95,10 +123,10 @@ class ProfileViewController: UIViewController {
         headerImageView = UIImageView(frame: headerView.bounds)
         headerImageView.contentMode = .scaleAspectFill
         headerImageView.isHidden = false
-        headerView.insertSubview(headerImageView, belowSubview: headerLabel)
+        headerView.insertSubview(headerImageView, belowSubview: blurEffectView)
         headerView.clipsToBounds = true
         if let bannerUrl = user.bannerUrl {
-            Helper.loadImage(withUrl: bannerUrl, forView: headerImageView)
+            Helper.loadImage(withUrl: bannerUrl, forView: headerImageView, placeholder: #imageLiteral(resourceName: "default_bg"))
         } else {
             headerImageView.image = #imageLiteral(resourceName: "default_bg")
         }
@@ -114,33 +142,18 @@ class ProfileViewController: UIViewController {
             tableView.layoutIfNeeded()
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.style = .small
+        cell.tweet = tweets[indexPath.row]
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("hi")
     }
 }
 
@@ -149,19 +162,45 @@ extension ProfileViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let headerHeight = headerView.bounds.height
         let offset = scrollView.contentOffset.y + headerHeight
+        let headerStop = CGFloat(50.0)
         
         var profileImageTransform = CATransform3DIdentity
         var headerTransform = CATransform3DIdentity
         
         if offset < 0 {
-            // Pulling down
-            print("Pulling down")
+            let headerScaleFactor = -1 * offset / headerHeight
+            let headerSizeVariation = (headerHeight * (1.0 + headerScaleFactor) - headerHeight) / 2.0
+            headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizeVariation, 0)
+            headerTransform = CATransform3DScale(headerTransform, 1.0 + headerScaleFactor, 1.0 + headerScaleFactor, 0)
+            
+            headerView.layer.zPosition = 0
             headerLabel.isHidden = true
         } else {
-            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-50, -offset), 0)
+            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-headerStop, -offset), 0)
             
-            headerLabel.isHidden = true
-            headerView.layer.transform = headerTransform
+            headerLabel.isHidden = false
+            let alignToHeaderLabel = -offset + nameLabel.frame.origin.y + headerHeight + headerStop
+            headerLabel.frame.origin = CGPoint(x: headerLabel.frame.origin.x, y: max(alignToHeaderLabel, headerStop + 40.0))
+            
+            blurEffectView.alpha = min(1.0, (offset - alignToHeaderLabel) / 40.0)
+            
+            let profileImageHeight = profileImageView.bounds.height
+            let profileImageScale = min(headerStop, offset) / profileImageHeight / 1.4
+            let profileSizeVariation = (profileImageHeight * (1.0 + profileImageScale) - profileImageHeight) / 2.0
+            
+            profileImageTransform = CATransform3DTranslate(profileImageTransform, 0, profileSizeVariation, 0)
+            profileImageTransform = CATransform3DScale(profileImageTransform, 1.0 - profileImageScale, 1.0 - profileImageScale, 0)
+            
+            if offset <= headerStop {
+                if profileImageView.layer.zPosition < headerView.layer.zPosition {
+                    headerView.layer.zPosition = 0
+                }
+            } else if profileImageView.layer.zPosition >= headerView.layer.zPosition {
+                headerView.layer.zPosition = 2.0
+            }
         }
+        
+        headerView.layer.transform = headerTransform
+        profileImageView.layer.transform = profileImageTransform
     }
 }

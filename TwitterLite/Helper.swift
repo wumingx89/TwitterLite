@@ -9,10 +9,10 @@
 import AFNetworking
 
 class Helper {
-    class func loadImage(withUrl url: URL, forView view: UIImageView) {
+    class func loadImage(withUrl url: URL, forView view: UIImageView, placeholder: UIImage? = nil) {
         view.setImageWith(
             URLRequest(url: url),
-            placeholderImage: nil,
+            placeholderImage: placeholder,
             success: { (request, response, image) in
                 view.image = image
                 

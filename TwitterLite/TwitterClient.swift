@@ -10,6 +10,10 @@ import UIKit
 import BDBOAuth1Manager
 import SwiftyJSON
 
+enum TimelineType: String {
+    case home, mentions, user
+}
+
 class TwitterClient: BDBOAuth1SessionManager {
     
     static let shared: TwitterClient = TwitterClient(
@@ -86,19 +90,17 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     // MARK: - Get timeline
-    func timeline(type: TimelineType, maxId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
-        let endpoint: String
-        switch type {
-        case .home:
-            endpoint = "1.1/statuses/home_timeline.json"
-        case .mentions:
-            endpoint = "1.1/statuses/mentions_timeline.json"
-        }
+    func timeline(type: TimelineType, maxId: String? = nil, userId: String? = nil, completion: @escaping ([Tweet]?, Error?) -> ()) {
+        let endpoint = "1.1/statuses/\(type.rawValue)_timeline.json"
         
         var params = ["count": "20"]
         if let maxId = maxId {
             params["max_id"] = maxId
             params["count"] = "21"
+        }
+        
+        if let userId = userId {
+            params["user_id"] = userId
         }
         
         get(endpoint,

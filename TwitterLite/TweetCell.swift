@@ -36,11 +36,15 @@ class TweetCell: UITableViewCell {
                 case .normal:
                     nameLabel.font = UIFont(name: nameLabel.font.fontName, size: nameLabel.font.pointSize + 5.0)
                     tweetLabel.font = UIFont(name: tweetLabel.font.fontName, size: tweetLabel.font.pointSize + 5.0)
-                    break
+                    replyImageView.isHidden = false
+                    retweetImageView.isHidden = false
+                    favoriteImageView.isHidden = false
                 case .small:
                     nameLabel.font = UIFont(name: nameLabel.font.fontName, size: nameLabel.font.pointSize - 5.0)
                     tweetLabel.font = UIFont(name: tweetLabel.font.fontName, size: tweetLabel.font.pointSize - 5.0)
-                    break
+                    replyImageView.isHidden = true
+                    retweetImageView.isHidden = true
+                    favoriteImageView.isHidden = true
                 }
             }
         }

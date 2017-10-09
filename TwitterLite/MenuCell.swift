@@ -23,8 +23,9 @@ class MenuCell: UITableViewCell, Configurable {
             
             if let timelineType = model.timelineType {
                 if let navigationVC = viewController as? UINavigationController {
-                    let tweetsVC = navigationVC.topViewController as! TweetsViewController
-                    tweetsVC.timelineType = timelineType
+                    if let tweetsVC = navigationVC.topViewController as? TweetsViewController {
+                        tweetsVC.timelineType = timelineType
+                    }
                 }
             }
         }
