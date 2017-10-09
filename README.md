@@ -1,6 +1,6 @@
 # Project 4 - *TwitterLite*
 
-Time spent: **6** hours spent in total
+Time spent: **18** hours spent in total
 
 ## User Stories
 
@@ -10,18 +10,18 @@ The following **required** functionality is completed:
    - [x] Dragging anywhere in the view should reveal the menu.
    - [x] The menu should include links to your profile, the home timeline, and the mentions view.
    - [x] The menu can look similar to the example or feel free to take liberty with the UI.
-- [ ] Profile page
-   - [ ] Contains the user header view
-   - [ ] Contains a section with the users basic stats: # tweets, # following, # followers
-- [ ] Home Timeline
-   - [ ] Tapping on a user image should bring up that user's profile page
+- [x] Profile page
+   - [x] Contains the user header view
+   - [x] Contains a section with the users basic stats: # tweets, # following, # followers
+- [x] Home Timeline
+   - [x] Tapping on a user image should bring up that user's profile page
 
 The following **optional** features are implemented:
 
 - [ ] Profile Page
    - [ ] Implement the paging view for the user description.
    - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
-   - [ ] Pulling down the profile page should blur and resize the header image.
+   - [x] Pulling down the profile page should blur and resize the header image.
 - [ ] Account switching
    - [ ] Long press on tab bar to bring up Account view with animation
    - [ ] Tap account to switch to
@@ -33,7 +33,18 @@ The following **additional** features are implemented:
 
 - [x] Opening the hamburger menu disables the content view. You can tap or drag to close menu
 - [x] Dragging/Opening/Closing the content view to reveal the hamburger menu has animation to gray out the content view.
+- [x] When the hamburger menu is open, the content view is disabled. It can be closed by tapping anywhere in the content view
 - [x] Dragging/Opening/Closing the content view will animate certain things. For example on the timelines the profile image icon will slowly disappear as the menu opens
+- [x] Scrolling on the profile page will animate the user profile image and appear to slide under the banner image. Scrolling down will reverse the effect
+- [x] When the name goes under the banner, a new one will show up in the banner. Same effect as in the real app.
+
+
+Features carried over from last project:
+- [x] Favorite and retweet icon animations
+- [x] Retweet opens a confirmation action sheet like in the real app
+- [x] Trying to leave the compose tweet view will prompt the user if the tweet isn't empty
+- [x] Tweet character count changes as you type. Turns red when there are 20 characters or less remaining
+- [x] Tweet button is disabled when text is empty or over 140 characters
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
