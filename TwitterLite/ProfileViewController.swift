@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
@@ -39,6 +40,22 @@ class ProfileViewController: UIViewController {
     // MARK:- View lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if navigationController != nil && navigationController!.viewControllers.count > 1 {
+            backImage.isHidden = false
+            backImage.isUserInteractionEnabled = true
+            backImage.image = #imageLiteral(resourceName: "profile_back").withRenderingMode(.alwaysTemplate)
+            backImage.tintColor = UIColor.white
+            backImage.backgroundColor = Constants.TwitterColor.lightGray
+            backImage.alpha = 0.66
+            backImage.layer.cornerRadius = backImage.bounds.size.width / 2.0
+            backImage.clipsToBounds = true
+            backImage.addGestureRecognizer(
+                UITapGestureRecognizer(target: self, action: #selector(onBack))
+            )
+        } else {
+            backImage.isHidden = true
+        }
         
         tableView.contentInset = UIEdgeInsetsMake(headerView.frame.height, 0, 0, 0)
         tableView.clipsToBounds = true
@@ -142,6 +159,10 @@ class ProfileViewController: UIViewController {
             tableView.layoutIfNeeded()
         }
     }
+    
+    func onBack() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -194,9 +215,11 @@ extension ProfileViewController: UIScrollViewDelegate {
             if offset <= headerStop {
                 if profileImageView.layer.zPosition < headerView.layer.zPosition {
                     headerView.layer.zPosition = 0
+                    backImage.layer.zPosition = headerView.layer.zPosition + 1.0
                 }
             } else if profileImageView.layer.zPosition >= headerView.layer.zPosition {
                 headerView.layer.zPosition = 2.0
+                backImage.layer.zPosition = headerView.layer.zPosition + 1.0
             }
         }
         

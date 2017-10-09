@@ -415,13 +415,23 @@
                                     </constraints>
                                 </view>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_back" translatesAutoresizingMaskIntoConstraints="NO" id="vNN-Pe-Jt3">
+                                <rect key="frame" x="16" y="20" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="ia6-OA-2PQ"/>
+                                    <constraint firstAttribute="height" constant="20" id="zry-hf-GTt"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DYa-j6-MJX" firstAttribute="leading" secondItem="s6L-dd-iXD" secondAttribute="leading" id="8i3-aG-4s7"/>
+                            <constraint firstItem="vNN-Pe-Jt3" firstAttribute="top" secondItem="s6L-dd-iXD" secondAttribute="top" constant="20" id="J9d-OD-TXu"/>
                             <constraint firstItem="QXe-95-w8Z" firstAttribute="leading" secondItem="s6L-dd-iXD" secondAttribute="leading" id="JHR-cu-BrQ"/>
                             <constraint firstItem="DYa-j6-MJX" firstAttribute="top" secondItem="DLf-lk-qLZ" secondAttribute="bottom" constant="-20" id="O07-c1-E7j"/>
                             <constraint firstAttribute="trailing" secondItem="QXe-95-w8Z" secondAttribute="trailing" id="Pz1-fE-m1k"/>
+                            <constraint firstItem="vNN-Pe-Jt3" firstAttribute="leading" secondItem="s6L-dd-iXD" secondAttribute="leading" constant="16" id="WJD-xN-dOv"/>
                             <constraint firstItem="Sd6-Ry-vnc" firstAttribute="top" secondItem="DYa-j6-MJX" secondAttribute="bottom" id="ijF-pB-hML"/>
                             <constraint firstAttribute="trailing" secondItem="DYa-j6-MJX" secondAttribute="trailing" id="sMD-st-0Gs"/>
                             <constraint firstItem="QXe-95-w8Z" firstAttribute="top" secondItem="DLf-lk-qLZ" secondAttribute="bottom" constant="-20" id="yIX-Mw-B2Q"/>
@@ -429,6 +439,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="wyb-uW-XOg"/>
                     <connections>
+                        <outlet property="backImage" destination="vNN-Pe-Jt3" id="do1-a4-Q6q"/>
                         <outlet property="bottomStackView" destination="AAi-6c-5T1" id="HMi-yY-btm"/>
                         <outlet property="followersCountLabel" destination="aBK-8e-fnq" id="2Oy-TS-IP0"/>
                         <outlet property="followingCountLabel" destination="QJE-Zq-agV" id="ve2-Dm-zq3"/>
@@ -952,6 +963,7 @@
         <image name="favorite" width="16" height="16"/>
         <image name="link" width="24" height="24"/>
         <image name="location" width="24" height="24"/>
+        <image name="profile_back" width="32" height="32"/>
         <image name="reply" width="16" height="16"/>
         <image name="retweet" width="16" height="16"/>
         <image name="twitter_blue_large" width="200" height="200"/>
