@@ -160,6 +160,10 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     func onBack() {
         navigationController?.popViewController(animated: true)
     }
